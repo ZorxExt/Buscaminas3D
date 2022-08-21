@@ -15,18 +15,18 @@ public class CenterControl : MonoBehaviour
         _horizontalInput = Input.GetAxis("Horizontal");
 
         //Rotacion en X e Y de la camara
-        gameObject.transform.Rotate(Vector3.down * _horizontalInput * Time.deltaTime * cameraSpeed);
-        gameObject.transform.Rotate(Vector3.right * _verticalInput * Time.deltaTime * cameraSpeed);
+        gameObject.transform.Rotate(cameraSpeed * Time.deltaTime * _horizontalInput *Vector3.down);
+        gameObject.transform.Rotate(cameraSpeed * Time.deltaTime * _verticalInput * Vector3.right);
         
         
         //Rotacion en Z de la camara (Se puede mejorar mediante inputs con flots para mas smooth)
         if (Input.GetKey(KeyCode.Q))
         {
-            gameObject.transform.Rotate(Vector3.back * Time.deltaTime * cameraSpeed);
+            gameObject.transform.Rotate(Time.deltaTime * cameraSpeed * Vector3.back);
         }
         if (Input.GetKey(KeyCode.E))
         {
-            gameObject.transform.Rotate(Vector3.forward * Time.deltaTime * 50);
+            gameObject.transform.Rotate(Time.deltaTime * 50 *Vector3.forward);
         }
     }
 }
