@@ -1,72 +1,72 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 using TMPro;
+using UnityEditor.IMGUI.Controls;
 
 public class Scripter : MonoBehaviour
 {
     public static Scripter scripter;
-  
+
     //Prefaps
     public GameObject bomba;
     public GameObject nobomba;
     public GameObject pointer;
     //
-    private GameObject _pointerIt;
-    public GameObject pointed;
+    
+    private GameObject _pointed;
     private GameObject _newBlock;
     
 
-    
-    
+
+
     //Este script es estatico y publico, sus funciones son accesibles desde cualquier parte de la escena.
-   
+
     void Start()
     {
         scripter = this;
     }
-    
+
 
     // Instancia "bomba" o "nobomba" en *coordenadas* y dentro un *numero*
-    public void SpawnBlock(string bombaOnobomba, Vector3 coordenadas, int numero)
+    public void SpawnBlock(bool isBomb, Vector3 coordenadas, int numero)
     {
-        switch (bombaOnobomba)
+        switch (isBomb)
         {
-            case "bomba":
+            case true:
                 Debug.Log("BOMBA");
                 _newBlock = Instantiate(bomba, coordenadas, Quaternion.identity);
-                _newBlock.GetComponentInChildren<TextMeshPro>().text = numero + "";
+                _newBlock.GetComponent<BlockProperties>().number = numero;
                 break;
-            case "nobomba":
+            case false:
                 Debug.Log("NOBOMBA");
                 _newBlock = Instantiate(nobomba, coordenadas, Quaternion.identity);
-                _newBlock.GetComponentInChildren<TextMeshPro>().text = numero + "";
-                break;
-            default:
-                Debug.Log("ERROR: TIPO ERRADO");
+                _newBlock.GetComponent<BlockProperties>().number = numero;
                 break;
         }
     }
-    
 
-    public void PointerGetComponent()
+
+    IEnumerator PointerDelete(Vector3 coordenadas)
     {
-        pointed = _pointerIt.GetComponent<Pointer>().contact;
+        GameObject pointerIt = Instantiate(pointer, coordenadas, Quaternion.identity);
+        yield return null;
+        _pointed = pointerIt.GetComponent<Pointer>().contact;
+        Destroy(pointerIt);
+        _pointed.GetComponent<MeshRenderer>().enabled = false;
+
     }
-    
+
     public void DeleteBlock(Vector3 coordenadas)
-    {
-        _pointerIt = Instantiate(pointer, coordenadas,Quaternion.identity);
-        Invoke(nameof(PointerGetComponent),0.1f);
-        Destroy(pointed);
-
+    {                                   
+        StartCoroutine(PointerDelete(coordenadas));
     }
-    
+
     //Devuelve True si el cubo es una bomba o False en caso contrario
     public void BombOrNot(Vector3 coordenadas)
     {
     }
+
 }
-
-
