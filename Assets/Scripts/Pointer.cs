@@ -7,7 +7,8 @@ public class Pointer : MonoBehaviour
 {
     private MeshRenderer _mesh;
     public GameObject contact;
-    private void OnTriggerStay(Collider other)
+
+    private void OnTriggerEnter(Collider other)
     {
         contact = other.gameObject;
     }

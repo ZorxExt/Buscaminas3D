@@ -52,7 +52,7 @@ public class Scripter : MonoBehaviour
     IEnumerator PointerDelete(Vector3 coordenadas)
     {
         GameObject pointerIt = Instantiate(pointer, coordenadas, Quaternion.identity);
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         _pointed = pointerIt.GetComponent<Pointer>().contact;
         Destroy(pointerIt);
         _pointed.GetComponent<MeshRenderer>().enabled = false;

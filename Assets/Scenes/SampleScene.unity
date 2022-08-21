@@ -154,8 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bomba: {fileID: 4159707100643489473, guid: 13c39db667865be4f962dddd2cb76013, type: 3}
   nobomba: {fileID: 8587532564906019682, guid: 3a926c79a1e8fac4791d4b9973fe816f, type: 3}
-  pointer: {fileID: 2421464060420888196, guid: eddefd95d244e9e46836bd84612c79eb, type: 3}
-  pointed: {fileID: 0}
+  pointer: {fileID: 2421464060420888196, guid: 6bc724216e997aa4ca7a1d5a83052c7f, type: 3}
 --- !u!4 &80754111
 Transform:
   m_ObjectHideFlags: 0
