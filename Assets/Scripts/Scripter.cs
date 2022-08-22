@@ -114,7 +114,7 @@ public class Scripter : MonoBehaviour
 
     // o sea cada bloque tiene cierta probabilidad de ser bomba
     // Podríamos hacerlo de otra manera mejor pero esto nos sirve para seguir avanzando pq es cortito
-    public bool generarBomba()
+    public bool GenerarBomba()
     {
         int rnd = UnityEngine.Random.Range(0, 100);
         if (rnd < porcentajeBombas)

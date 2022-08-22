@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class test : MonoBehaviour
+public class Test : MonoBehaviour
 {
 
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         for (int j = -5; j < 5; j++)
         {
             for (int i = -5; i < 5; i++)
             {
-                bool isBomb = Scripter.scripter.generarBomba();
+                bool isBomb = Scripter.scripter.GenerarBomba();
                 Scripter.scripter.SpawnBlock(isBomb,new Vector3(i, j, 5));
 
             }
@@ -23,7 +23,7 @@ public class test : MonoBehaviour
         {
             for (int i = -5; i < 5; i++)
             {
-                bool isBomb = Scripter.scripter.generarBomba();
+                bool isBomb = Scripter.scripter.GenerarBomba();
                 Scripter.scripter.SpawnBlock(isBomb,new Vector3(i,j,-5));
 
             }
@@ -35,7 +35,7 @@ public class test : MonoBehaviour
             
             for (int i = -4; i < 5; i++)
             {
-                bool isBomb = Scripter.scripter.generarBomba();
+                bool isBomb = Scripter.scripter.GenerarBomba();
                 Scripter.scripter.SpawnBlock(isBomb,new Vector3(-5,j,i));
 
             }
@@ -46,7 +46,7 @@ public class test : MonoBehaviour
         {
             for (int i = -4; i < 5; i++)
             {
-                bool isBomb = Scripter.scripter.generarBomba();
+                bool isBomb = Scripter.scripter.GenerarBomba();
                 Scripter.scripter.SpawnBlock(isBomb, new Vector3(4,j,i));
 
             }
@@ -56,7 +56,7 @@ public class test : MonoBehaviour
         {
             for (int i = -4; i < 4; i++)
             {
-                bool isBomb = Scripter.scripter.generarBomba();
+                bool isBomb = Scripter.scripter.GenerarBomba();
                 Scripter.scripter.SpawnBlock(isBomb,new Vector3(i,4,j));
 
             }
@@ -67,7 +67,7 @@ public class test : MonoBehaviour
         {
             for (int i = -4; i < 4; i++)
             {
-                bool isBomb = Scripter.scripter.generarBomba();
+                bool isBomb = Scripter.scripter.GenerarBomba();
                 Scripter.scripter.SpawnBlock(isBomb,new Vector3(i,-5,j));
 
             }
@@ -158,12 +158,5 @@ public class test : MonoBehaviour
         
         
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
 
 }

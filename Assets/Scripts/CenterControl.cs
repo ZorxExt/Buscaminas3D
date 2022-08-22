@@ -9,7 +9,7 @@ public class CenterControl : MonoBehaviour
 
     public float cameraSpeed;
     
-    void Update()
+    private void Update()
     {
         _verticalInput = Input.GetAxis("Vertical");
         _horizontalInput = Input.GetAxis("Horizontal");
