@@ -8,7 +8,7 @@ using UnityEngine;
 public class BlockProperties : MonoBehaviour
 {
     public bool isBomb;
-    public bool isRevealed;
+    public bool isRevealed = false;
     public bool isFlagged;
     public int number;
 
@@ -23,7 +23,7 @@ public class BlockProperties : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Scripter.scripter.DeleteBlock(gameObject.transform.position);
+        Scripter.scripter.RecursiveDelete(gameObject.transform.position);
 
         if (isBomb)
         {

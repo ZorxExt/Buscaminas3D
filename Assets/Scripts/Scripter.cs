@@ -8,7 +8,7 @@ using UnityEditor.IMGUI.Controls;
 
 public class Scripter : MonoBehaviour
 {
-    public int porcentajeBombas = 20;
+    public int porcentajeBombas = 50;
     public static Scripter scripter;
 
     //Prefaps
@@ -69,6 +69,44 @@ public class Scripter : MonoBehaviour
         StartCoroutine(PointerDelete(coordenadas));
     }
 
+    public void RecursiveDelete(Vector3 coordenadas)
+    {
+        DeleteBlock(coordenadas);
+        int i = (int)coordenadas.x;
+        int j = (int)coordenadas.y;
+        int k = (int)coordenadas.z;
+        string thisKey = $"{i},{j},{k}";
+        GameObject thisBlock = blockMap[thisKey];
+        thisBlock.GetComponent<BlockProperties>().isRevealed = true;
+        if (thisBlock.GetComponent<BlockProperties>().number == 0)
+        {
+            for (int x = -1; x <= 1; x++)
+            {
+                for (int y = -1; y <= 1; y++)
+                {
+                    for (int z = -1; z <= 1; z++)
+                    {
+                        string key = $"{x + i},{y + j},{z + k}";
+                        if (blockMap.ContainsKey(key) && coordenadas != new Vector3(x+i,y+j,z+k))
+                        {
+                            GameObject bloqueAdyacente = blockMap[key];
+                            if (bloqueAdyacente.GetComponent<BlockProperties>().number != -1
+                                && bloqueAdyacente.GetComponent<BlockProperties>().isRevealed == false)
+                            {
+                                Debug.Log(bloqueAdyacente);
+                                RecursiveDelete(bloqueAdyacente.transform.position);
+
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    
+    
 
     // o sea cada bloque tiene cierta probabilidad de ser bomba
     // Podríamos hacerlo de otra manera mejor pero esto nos sirve para seguir avanzando pq es cortito
