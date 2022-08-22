@@ -61,6 +61,10 @@ public class Scripter : MonoBehaviour
         _pointed = pointerIt.GetComponent<Pointer>().contact;
         Destroy(pointerIt);
         _pointed.GetComponent<MeshRenderer>().enabled = false;
+        if (_pointed.GetComponent<BlockProperties>().number == 0)
+        {
+            _pointed.GetComponentInChildren<TextMeshPro>().text = "";
+        }
 
     }
 
