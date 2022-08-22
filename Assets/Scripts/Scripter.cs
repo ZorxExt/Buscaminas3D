@@ -117,6 +117,5 @@ public class Scripter : MonoBehaviour
         return contador;
     }
     
-
     
 }
