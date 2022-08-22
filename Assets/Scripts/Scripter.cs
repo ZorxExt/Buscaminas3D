@@ -8,6 +8,7 @@ using UnityEditor.IMGUI.Controls;
 
 public class Scripter : MonoBehaviour
 {
+    public int porcentajeBombas = 20;
     public static Scripter scripter;
 
     //Prefaps
@@ -18,6 +19,7 @@ public class Scripter : MonoBehaviour
     
     private GameObject _pointed;
     private GameObject _newBlock;
+    public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>(); 
     
 
 
@@ -31,21 +33,24 @@ public class Scripter : MonoBehaviour
 
 
     // Instancia "bomba" o "nobomba" en *coordenadas* y dentro un *numero*
-    public void SpawnBlock(bool isBomb, Vector3 coordenadas, int numero)
+    public void SpawnBlock(bool isBomb, Vector3 coordenadas)
     {
         switch (isBomb)
         {
             case true:
-                Debug.Log("BOMBA");
                 _newBlock = Instantiate(bomba, coordenadas, Quaternion.identity);
-                _newBlock.GetComponent<BlockProperties>().number = numero;
                 break;
             case false:
-                Debug.Log("NOBOMBA");
                 _newBlock = Instantiate(nobomba, coordenadas, Quaternion.identity);
-                _newBlock.GetComponent<BlockProperties>().number = numero;
                 break;
         }
+
+        // Diccionario con todos los bloques
+        int x = (int)coordenadas.x;
+        int y = (int)coordenadas.y;
+        int z = (int)coordenadas.z;
+        blockMap.Add($"{x},{y},{z}", _newBlock);
+
     }
 
 
@@ -64,9 +69,54 @@ public class Scripter : MonoBehaviour
         StartCoroutine(PointerDelete(coordenadas));
     }
 
-    //Devuelve True si el cubo es una bomba o False en caso contrario
-    public void BombOrNot(Vector3 coordenadas)
-    {
-    }
 
+    // o sea cada bloque tiene cierta probabilidad de ser bomba
+    // Podríamos hacerlo de otra manera mejor pero esto nos sirve para seguir avanzando pq es cortito
+    public bool generarBomba()
+    {
+        int rnd = UnityEngine.Random.Range(0, 100);
+        if (rnd < porcentajeBombas)
+        {
+            return true;
+        }
+
+        return false;
+    }
+    
+    public int CalcularNumero(int i, int j, int k)
+    {
+        string thisKey = $"{i},{j},{k}";
+        GameObject thisBlock = blockMap[thisKey];
+
+        if (thisBlock.name == "Cubo BOMBA(Clone)")
+        {
+            return -1;
+        }
+        
+        int contador = 0;
+        
+        for (int x = -1; x <= 1; x++)
+        {
+            for (int y = -1; y <= 1; y++)
+            {
+                for (int z = -1; z <= 1; z++)
+                {
+                    string key = $"{x + i},{y + j},{z + k}";
+                    if (blockMap.ContainsKey(key))
+                    {
+                        GameObject bloqueAdyacente = blockMap[key];
+                        if (bloqueAdyacente.name == "Cubo BOMBA(Clone)")
+                        {
+                            contador++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return contador;
+    }
+    
+
+    
 }
