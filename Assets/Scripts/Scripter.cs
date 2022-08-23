@@ -173,7 +173,7 @@ public class Scripter : MonoBehaviour
         string thisKey = $"{i},{j},{k}";
         GameObject thisBlock = blockMap[thisKey];
 
-        if (thisBlock.name == "Cubo BOMBA(Clone)")
+        if (thisBlock.GetComponent<BlockProperties>().isBomb)
         {
             return -1;
         }
@@ -190,7 +190,7 @@ public class Scripter : MonoBehaviour
                     if (blockMap.ContainsKey(key))
                     {
                         GameObject bloqueAdyacente = blockMap[key];
-                        if (bloqueAdyacente.name == "Cubo BOMBA(Clone)")
+                        if (bloqueAdyacente.GetComponent<BlockProperties>().isBomb)
                         {
                             contador++;
                         }
