@@ -7,8 +7,14 @@ public class Test : MonoBehaviour
 
 
     // Start is called before the first frame update
+    
     private void Start()
     {
+        
+        Scripter.scripter.CreateTable(-5,4,-5,4,-5,4);
+        
+        Scripter.scripter.CreateTable(15,30,15,30,15,30);
+    /* 
         for (int j = -5; j < 5; j++)
         {
             for (int i = -5; i < 5; i++)
@@ -147,7 +153,7 @@ public class Test : MonoBehaviour
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
-        
+*/
         /*Scripter.scripter.DeleteBlock(new Vector3(4,3,1));
         
         

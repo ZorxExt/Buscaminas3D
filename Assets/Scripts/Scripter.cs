@@ -158,6 +158,166 @@ public class Scripter : MonoBehaviour
 
         return contador;
     }
+
+    public void CreateTable(int x1, int x2, int y1, int y2, int z1, int z2)
+    {
+        
+        //PAREDES GRANDES
+        
+        for (int j = y1; j < (y2 + 1) ; j++)
+        {
+            for (int i = x1; i < (x2 + 1) ; i++)
+            {
+                bool isBomb = Scripter.scripter.GenerarBomba();
+                Scripter.scripter.SpawnBlock(isBomb,new Vector3(i, j, (z2 + 1)));
+
+            }
+        }
+        
+        for (int j = y1; j < (y2 + 1) ; j++)
+        {
+            for (int i = x1; i < (x2 + 1) ; i++)
+            {
+                bool isBomb = Scripter.scripter.GenerarBomba();
+                Scripter.scripter.SpawnBlock(isBomb,new Vector3(i,j, z1 ));
+
+            }
+        }
+        
+        //PAREDES CHICAS
+                
+        for (int j = y1; j < (y2+1); j++)
+        {
+            
+            for (int i = z1+1; i < z2+1; i++)
+            {
+                bool isBomb = Scripter.scripter.GenerarBomba();
+                Scripter.scripter.SpawnBlock(isBomb,new Vector3(x1,j,i));
+
+            }
+        }
+        
+
+        for (int j = y1; j < y2+1; j++)
+        {
+            for (int i = z1+1; i < z2+1; i++)
+            {
+                bool isBomb = Scripter.scripter.GenerarBomba();
+                Scripter.scripter.SpawnBlock(isBomb, new Vector3(x2,j,i));
+            }
+        }
+        
+        //TAPAS
+        
+        
+        for (int j = z1+1; j < z2+1; j++)
+        {
+            for (int i = x1+1; i < x2; i++)
+            {
+                bool isBomb = Scripter.scripter.GenerarBomba();
+                Scripter.scripter.SpawnBlock(isBomb,new Vector3(i,y2,j));
+
+            }
+        }
+        
+
+        for (int j = z1+1; j < z2+1; j++)
+        {
+            for (int i = x1+1; i < x2; i++)
+            {
+                bool isBomb = Scripter.scripter.GenerarBomba();
+                Scripter.scripter.SpawnBlock(isBomb,new Vector3(i,y1,j));
+
+            }
+        }
+        
+        
+
+
+        // Acá recorre todos los bloques y les pone su número
+        // Tiene q hacerse después de crear los bloques porque sino vas a contar menos minas
+        
+        
+        //PAREDES GRANDES
+        
+        for (int j = y1; j < (y2 + 1) ; j++)
+        {
+            for (int i = x1; i < (x2 + 1); i++)
+            {
+                string llave = $"{i},{j},{z2+1}";
+                GameObject bloque = Scripter.scripter.blockMap[llave];
+                int numero = Scripter.scripter.CalcularNumero(i, j, (z2 + 1));
+                bloque.GetComponent<BlockProperties>().number = numero;
+            }
+        }
+       
+        for (int j = y1; j < (y2 + 1); j++)
+        {
+            for (int i = x1; i < (x2 + 1); i++)
+            {
+                string llave = $"{i},{j},{z1}";
+                GameObject bloque = Scripter.scripter.blockMap[llave];
+                int numero = Scripter.scripter.CalcularNumero(i, j, z1);
+                bloque.GetComponent<BlockProperties>().number = numero;
+            }
+        }
+        
+        //PAREDES CHICAS
+        
+        for (int j = y1; j < (y2+1); j++)
+        {
+            
+            for (int i = z1+1; i < z2+1; i++)
+            {
+                string llave = $"{z1},{j},{i}";
+                GameObject bloque = Scripter.scripter.blockMap[llave];
+                int numero = Scripter.scripter.CalcularNumero(x1, j, i);
+                bloque.GetComponent<BlockProperties>().number = numero;
+
+            }
+        }
+        
+
+        for (int j = y1; j < y2+1; j++)
+        {
+            for (int i = z1+1; i < z2+1; i++)
+            {
+                string llave = $"{z2},{j},{i}";
+                GameObject bloque = Scripter.scripter.blockMap[llave];
+                int numero = Scripter.scripter.CalcularNumero(x2, j, i);
+                bloque.GetComponent<BlockProperties>().number = numero;
+            }
+        }
+
+        //TAPAS
+        
+        for (int j = z1+1; j < z2+1; j++)
+        {
+            for (int i = x1+1; i < x2; i++)
+            {
+                string llave = $"{i},{y2},{j}";
+                GameObject bloque = Scripter.scripter.blockMap[llave];
+                int numero = Scripter.scripter.CalcularNumero(i, y2, j);
+                bloque.GetComponent<BlockProperties>().number = numero;
+
+            }
+        }
+        
+
+        for (int j = z1+1; j < z2+1; j++)
+        {
+            for (int i = x1+1; i < x2; i++)
+            {
+                string llave = $"{i},{y1},{j}";
+                GameObject bloque = Scripter.scripter.blockMap[llave];
+                int numero = Scripter.scripter.CalcularNumero(i, y1, j);
+                bloque.GetComponent<BlockProperties>().number = numero;;
+
+            }
+        }
+        
+        
+    }
     
     
 }
