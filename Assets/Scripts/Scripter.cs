@@ -1,18 +1,21 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine.SceneManagement;
 
 public class Scripter : MonoBehaviour
 {
-    public int porcentajeBombas = 50;
+    public int porcentajeBombas = 15;
     public static Scripter scripter;
     public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>();
     public bool lost = false;
+    public int totalAmountBombs = 0;
 
     //Prefaps
     public GameObject bomba;
@@ -159,7 +162,7 @@ public class Scripter : MonoBehaviour
 
     // o sea cada bloque tiene cierta probabilidad de ser bomba
     // Podríamos hacerlo de otra manera mejor pero esto nos sirve para seguir avanzando pq es cortito
-    public bool GenerarBomba()
+    /*public bool GenerarBomba()
     {
         int rnd = UnityEngine.Random.Range(0, 100);
         if (rnd < porcentajeBombas)
@@ -168,8 +171,73 @@ public class Scripter : MonoBehaviour
         }
 
         return false;
+    }*/
+
+
+    public bool[] PoblarArray(int length, bool valor)
+    {
+        bool[] array = new bool[length];
+        
+        for (int i = 0; i < length; i++)
+        {
+            array[i] = valor;
+        }
+
+        return array;
+    }
+
+    public bool[] MezclarArray(bool[] array)
+    {
+        for (int i = 0; i < array.Length - 1; i++) 
+        {
+            int rnd = UnityEngine.Random.Range(i, array.Length);
+            bool temp = array[rnd];
+            array[rnd] = array[i];
+            array[i] = temp;
+        }
+        
+        return array;
+    }
+
+    public bool[,] Make2DArray(bool[] array1D, int width, int height)
+    {
+        bool[,] array2D = new bool[width, height];
+
+        int index = 0;
+        
+        for (int i = 0; i < width; i++)
+        {
+            for (int j = 0; j < height; j++)
+            {
+                array2D[i, j] = array1D[index];
+                index++;
+            }
+        }
+
+        return array2D;
     }
     
+    
+    public bool[,] GenerarCara(int alto, int ancho)
+    {
+
+        int bombAmount = porcentajeBombas * alto * ancho / 100;
+        totalAmountBombs += bombAmount;
+        
+        int nobombAmount = (alto * ancho) - bombAmount;
+        
+        bool[] bombArray = PoblarArray(bombAmount, true);
+        bool[] nobombArray = PoblarArray(nobombAmount, false);
+
+        bool[] everythingArray = bombArray.Concat(nobombArray).ToArray();
+        bool[] shuffledArray = MezclarArray(everythingArray);
+
+        bool[,] finalArray = Make2DArray(shuffledArray, ancho, alto);
+        
+        return finalArray;
+    }
+
+
     public int CalcularNumero(int i, int j, int k, int ejex, int ejey, int ejez) //int ejex, int ejey, int ejez
     {
         string thisKey = $"{i},{j},{k}";
@@ -213,80 +281,158 @@ public class Scripter : MonoBehaviour
 
     public void CreateTable(int x1, int x2, int y1, int y2, int z1, int z2)
     {
-
+        int width = Math.Abs(x1 - x2) + 1;
+        int height = Math.Abs(y1 - y2) + 1;
+        int depth = Math.Abs(z1 - z2) + 1;
+        
+        int contadorI = 0;
+        int contadorJ = 0;
+        int contadorK = 0;
         
         //PAREDES GRANDES
         
-        for (int j = y1; j < (y2 + 1) ; j++)
-        {
-            for (int i = x1; i < (x2 + 1) ; i++)
-            {
-                bool isBomb = GenerarBomba();
-                SpawnBlock(isBomb,new Vector3(i, j, z2));
+        //Cara 1
+        
+        bool[,] cara1 = GenerarCara(width, height);
 
-            }
-        }
+        contadorI = 0;
+        contadorJ = 0;
         
         for (int j = y1; j < (y2 + 1) ; j++)
         {
             for (int i = x1; i < (x2 + 1) ; i++)
             {
-                bool isBomb = GenerarBomba();
-                SpawnBlock(isBomb,new Vector3(i,j, z1));
 
+                bool isBomb = cara1[contadorI, contadorJ];
+                
+                SpawnBlock(isBomb,new Vector3(i, j, z2));
+
+                contadorI++;
             }
+
+            contadorI = 0;
+            
+            contadorJ++;
+        }
+        
+        //Cara 2
+
+        bool[,] cara2 = GenerarCara(width, height);
+
+        contadorI = 0;
+        contadorJ = 0;
+        
+        for (int j = y1; j < (y2 + 1) ; j++)
+        {
+            for (int i = x1; i < (x2 + 1) ; i++)
+            {
+                bool isBomb = cara2[contadorI, contadorJ];
+                
+                SpawnBlock(isBomb,new Vector3(i,j, z1));
+                
+                contadorI++;
+            }
+
+            contadorI = 0;
+            
+            contadorJ++;
         } 
         
         //PAREDES CHICAS
-                
+        
+        //Cara 3
+        
+        bool[,] cara3 = GenerarCara(depth, height);
+
+        contadorK = 0;
+        contadorJ = 0;
+        
         for (int j = y1; j < (y2+1); j++)
         {
             
             for (int k = z1+1; k < z2; k++)
             {
-                bool isBomb = GenerarBomba();
+                bool isBomb = cara3[contadorK, contadorJ];
+                
                 SpawnBlock(isBomb,new Vector3(x1,j,k));
-
+                
+                contadorK++;
             }
+
+            contadorK = 0;
+            
+            contadorJ++;
         }
         
-
+        //Cara 4
+        
+        bool[,] cara4 = GenerarCara(depth, height);
+        
+        contadorK = 0;
+        contadorJ = 0;
+        
         for (int j = y1; j < y2+1; j++)
         {
             for (int k = z1+1; k < z2; k++)
             {
-                bool isBomb = GenerarBomba();
+                bool isBomb = cara4[contadorK, contadorJ];
+                
                 SpawnBlock(isBomb, new Vector3(x2,j,k));
+
+                contadorK++;
             }
+
+            contadorK = 0;
+            
+            contadorJ++;
         }
         
         //TAPAS
         
+        //Cara 5
+        
+        bool[,] cara5 = GenerarCara(width, depth);
+        
+        contadorI = 0;
+        contadorK = 0;
         
         for (int k = z1+1; k < z2; k++)
         {
             for (int i = x1+1; i < x2; i++)
             {
-                bool isBomb = GenerarBomba();
+                bool isBomb = cara5[contadorI, contadorK];
+                
                 SpawnBlock(isBomb,new Vector3(i,y2,k));
-
+                
+                contadorI++;
             }
+
+            contadorI = 0;
+            
+            contadorK++;
         }
         
-
+        //Cara 6
+        
+        bool[,] cara6 = GenerarCara(width, height);
+        
+        contadorI = 0;
+        contadorK = 0;
+        
         for (int k = z1+1; k < z2; k++)
         {
             for (int i = x1+1; i < x2; i++)
             {
-                bool isBomb = GenerarBomba();
+                bool isBomb = cara6[contadorI, contadorK];
                 SpawnBlock(isBomb,new Vector3(i,y1,k));
-
+                contadorI++;
             }
+
+            contadorI = 0;
+            
+            contadorK++;
         }
         
-        
-
-
         // Acá recorre todos los bloques y les pone su número
         // Tiene q hacerse después de crear los bloques porque sino vas a contar menos minas
         
@@ -435,8 +581,10 @@ public class Scripter : MonoBehaviour
 
             }
         }
-        
-        
+
+        Debug.Log(totalAmountBombs);
+        Debug.Log(blockMap.Count);
+
     }
     
     //Scene Manager

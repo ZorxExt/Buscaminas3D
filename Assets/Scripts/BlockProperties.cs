@@ -30,7 +30,6 @@ public class BlockProperties : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Scripter.scripter.RecursiveDelete(position);
-            Debug.Log(position);
         }
 
         if (Input.GetMouseButtonDown(1))
