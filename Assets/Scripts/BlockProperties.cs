@@ -15,14 +15,12 @@ public class BlockProperties : MonoBehaviour
     private void Start()
     {
         GetComponentInChildren<TextMeshPro>().text = number + "";
-        if (isBomb)
-        {
-            GetComponentInChildren<TextMeshPro>().color = Color.red;   
-        }
     }
     
     private void OnMouseOver()
     {
+        if (Scripter.scripter.lost) return;
+        
         if (Input.GetMouseButtonDown(0))
         {
             Scripter.scripter.RecursiveDelete(gameObject.transform.position);
