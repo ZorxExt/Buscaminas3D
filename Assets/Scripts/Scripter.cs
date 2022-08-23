@@ -17,6 +17,7 @@ public class Scripter : MonoBehaviour
     public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>();
     public bool lost = false;
     public int totalAmountBombs = 0;
+    public int totalAmountNoBombs = 0;
     public GameObject deadUI;
 
     //Prefaps
@@ -51,6 +52,7 @@ public class Scripter : MonoBehaviour
                 break;
             case false:
                 _newBlock = Instantiate(nobomba, coordenadas, Quaternion.identity);
+                totalAmountNoBombs++;
                 break;
         }
 
@@ -99,6 +101,13 @@ public class Scripter : MonoBehaviour
         _pointed = pointerIt.GetComponent<Pointer>().contact;
         Destroy(pointerIt);
         _pointed.GetComponent<MeshRenderer>().enabled = false;
+        totalAmountNoBombs--;
+
+        if (totalAmountNoBombs == 0)
+        {
+            Debug.Log("Fin");
+        }
+        
         if (_pointed.GetComponent<BlockProperties>().number == 0)
         {
             _pointed.GetComponentInChildren<TextMeshPro>().text = "";
