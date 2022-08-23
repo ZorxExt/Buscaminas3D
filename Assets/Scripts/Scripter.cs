@@ -215,7 +215,7 @@ public class Scripter : MonoBehaviour
             for (int i = x1; i < (x2 + 1) ; i++)
             {
                 bool isBomb = GenerarBomba();
-                SpawnBlock(isBomb,new Vector3(i, j, (z2 + 1)));
+                SpawnBlock(isBomb,new Vector3(i, j, z2));
 
             }
         }
@@ -228,14 +228,14 @@ public class Scripter : MonoBehaviour
                 SpawnBlock(isBomb,new Vector3(i,j, z1 ));
 
             }
-        }
+        } 
         
         //PAREDES CHICAS
                 
         for (int j = y1; j < (y2+1); j++)
         {
             
-            for (int i = z1+1; i < z2+1; i++)
+            for (int i = z1+1; i < z2; i++)
             {
                 bool isBomb = GenerarBomba();
                 SpawnBlock(isBomb,new Vector3(x1,j,i));
@@ -246,7 +246,7 @@ public class Scripter : MonoBehaviour
 
         for (int j = y1; j < y2+1; j++)
         {
-            for (int i = z1+1; i < z2+1; i++)
+            for (int i = z1+1; i < z2; i++)
             {
                 bool isBomb = GenerarBomba();
                 SpawnBlock(isBomb, new Vector3(x2,j,i));
@@ -256,7 +256,7 @@ public class Scripter : MonoBehaviour
         //TAPAS
         
         
-        for (int j = z1+1; j < z2+1; j++)
+        for (int j = z1+1; j < z2; j++)
         {
             for (int i = x1+1; i < x2; i++)
             {
@@ -267,7 +267,7 @@ public class Scripter : MonoBehaviour
         }
         
 
-        for (int j = z1+1; j < z2+1; j++)
+        for (int j = z1+1; j < z2; j++)
         {
             for (int i = x1+1; i < x2; i++)
             {
@@ -290,9 +290,9 @@ public class Scripter : MonoBehaviour
         {
             for (int i = x1; i < (x2 + 1); i++)
             {
-                string llave = $"{i},{j},{z2+1}";
+                string llave = $"{i},{j},{z2}";
                 GameObject bloque = blockMap[llave];
-                int numero = CalcularNumero(i, j, (z2 + 1));
+                int numero = CalcularNumero(i, j, z2);
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
@@ -313,7 +313,7 @@ public class Scripter : MonoBehaviour
         for (int j = y1; j < (y2+1); j++)
         {
             
-            for (int i = z1+1; i < z2+1; i++)
+            for (int i = z1+1; i < z2; i++)
             {
                 string llave = $"{z1},{j},{i}";
                 GameObject bloque = blockMap[llave];
@@ -326,7 +326,7 @@ public class Scripter : MonoBehaviour
 
         for (int j = y1; j < y2+1; j++)
         {
-            for (int i = z1+1; i < z2+1; i++)
+            for (int i = z1+1; i < z2; i++)
             {
                 string llave = $"{z2},{j},{i}";
                 GameObject bloque = blockMap[llave];
@@ -337,7 +337,7 @@ public class Scripter : MonoBehaviour
 
         //TAPAS
         
-        for (int j = z1+1; j < z2+1; j++)
+        for (int j = z1+1; j < z2; j++)
         {
             for (int i = x1+1; i < x2; i++)
             {
@@ -350,7 +350,7 @@ public class Scripter : MonoBehaviour
         }
         
 
-        for (int j = z1+1; j < z2+1; j++)
+        for (int j = z1+1; j < z2; j++)
         {
             for (int i = x1+1; i < x2; i++)
             {
