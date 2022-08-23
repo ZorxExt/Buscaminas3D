@@ -8,6 +8,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class Scripter : MonoBehaviour
 {
@@ -15,7 +16,11 @@ public class Scripter : MonoBehaviour
     public static Scripter scripter;
     public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>();
     public bool lost = false;
+<<<<<<< Updated upstream
     public int totalAmountBombs = 0;
+=======
+    public GameObject deadUI;
+>>>>>>> Stashed changes
 
     //Prefaps
     public GameObject bomba;
@@ -34,6 +39,7 @@ public class Scripter : MonoBehaviour
     void Start()
     {
         scripter = this;
+        deadUI.SetActive(false);
         
     }
 
@@ -115,6 +121,7 @@ public class Scripter : MonoBehaviour
         if (thisBlock.GetComponent<BlockProperties>().isBomb)
         {
             thisBlock.GetComponent<Renderer>().material.color = Color.magenta;
+            ActivateUIDead();
             lost = true;
             return;
         }
@@ -600,9 +607,16 @@ public class Scripter : MonoBehaviour
         else
         {
             SceneManager.LoadScene(sceneName);
+            
         }
     }
     
+    // UI Mangager
+
+    public void ActivateUIDead()
+    {
+        deadUI.SetActive(true);
+    }
     
     
 }

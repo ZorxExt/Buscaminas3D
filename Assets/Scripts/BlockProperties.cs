@@ -21,7 +21,6 @@ public class BlockProperties : MonoBehaviour
     {
         if (Scripter.scripter.lost)
         {
-            Scripter.scripter.ChangeScene("SampleScene");
             return;
         }
 
