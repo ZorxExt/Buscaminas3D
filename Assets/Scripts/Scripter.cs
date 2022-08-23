@@ -168,7 +168,7 @@ public class Scripter : MonoBehaviour
         return false;
     }
     
-    public int CalcularNumero(int i, int j, int k) //int ejex, int ejey, int ejez
+    public int CalcularNumero(int i, int j, int k, int ejex, int ejey, int ejez) //int ejex, int ejey, int ejez
     {
         string thisKey = $"{i},{j},{k}";
         GameObject thisBlock = blockMap[thisKey];
@@ -177,21 +177,26 @@ public class Scripter : MonoBehaviour
         {
             return -1;
         }
-        
-        
+
         int contador = 0;
 
-        for (int x = -1; x <= 1; x++)
+        for (int x = -1 * ejex; x <= ejex; x++)
         {
-            for (int y = -1; y <= 1; y++)
+            for (int y = -1 * ejey; y <= ejey; y++)
             {
-                for (int z = -1; z <= 1; z++)
+                for (int z = -1 * ejez; z <= ejez; z++)
                 {
 
-                    string key = $"{x + i},{y + j},{z + k}";
+                    int thisX = (x + i);
+                    int thisY = (y + j);
+                    int thisZ = (z + k);
+
+                    string key = $"{thisX},{thisY},{thisZ}";
+                    
                     if (blockMap.ContainsKey(key))
                     {
                         GameObject bloqueAdyacente = blockMap[key];
+                        
                         if (bloqueAdyacente.GetComponent<BlockProperties>().isBomb)
                         {
                             contador++;
@@ -225,7 +230,7 @@ public class Scripter : MonoBehaviour
             for (int i = x1; i < (x2 + 1) ; i++)
             {
                 bool isBomb = GenerarBomba();
-                SpawnBlock(isBomb,new Vector3(i,j, z1 ));
+                SpawnBlock(isBomb,new Vector3(i,j, z1));
 
             }
         } 
@@ -235,10 +240,10 @@ public class Scripter : MonoBehaviour
         for (int j = y1; j < (y2+1); j++)
         {
             
-            for (int i = z1+1; i < z2; i++)
+            for (int k = z1+1; k < z2; k++)
             {
                 bool isBomb = GenerarBomba();
-                SpawnBlock(isBomb,new Vector3(x1,j,i));
+                SpawnBlock(isBomb,new Vector3(x1,j,k));
 
             }
         }
@@ -246,33 +251,33 @@ public class Scripter : MonoBehaviour
 
         for (int j = y1; j < y2+1; j++)
         {
-            for (int i = z1+1; i < z2; i++)
+            for (int k = z1+1; k < z2; k++)
             {
                 bool isBomb = GenerarBomba();
-                SpawnBlock(isBomb, new Vector3(x2,j,i));
+                SpawnBlock(isBomb, new Vector3(x2,j,k));
             }
         }
         
         //TAPAS
         
         
-        for (int j = z1+1; j < z2; j++)
+        for (int k = z1+1; k < z2; k++)
         {
             for (int i = x1+1; i < x2; i++)
             {
                 bool isBomb = GenerarBomba();
-                SpawnBlock(isBomb,new Vector3(i,y2,j));
+                SpawnBlock(isBomb,new Vector3(i,y2,k));
 
             }
         }
         
 
-        for (int j = z1+1; j < z2; j++)
+        for (int k = z1+1; k < z2; k++)
         {
             for (int i = x1+1; i < x2; i++)
             {
                 bool isBomb = GenerarBomba();
-                SpawnBlock(isBomb,new Vector3(i,y1,j));
+                SpawnBlock(isBomb,new Vector3(i,y1,k));
 
             }
         }
@@ -291,8 +296,20 @@ public class Scripter : MonoBehaviour
             for (int i = x1; i < (x2 + 1); i++)
             {
                 string llave = $"{i},{j},{z2}";
+                
                 GameObject bloque = blockMap[llave];
-                int numero = CalcularNumero(i, j, z2);
+                
+                int ejex = 1;
+                int ejey = 1;
+                int ejez = 0;
+
+                if (i == x1 || i == x2 || j == y1 || j == y2)
+                {
+                    ejez = 1;
+                }
+
+                int numero = CalcularNumero(i, j, z2, ejex, ejey, ejez);
+                
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
@@ -303,7 +320,17 @@ public class Scripter : MonoBehaviour
             {
                 string llave = $"{i},{j},{z1}";
                 GameObject bloque = blockMap[llave];
-                int numero = CalcularNumero(i, j, z1);
+                
+                int ejex = 1;
+                int ejey = 1;
+                int ejez = 0;
+
+                if (i == x1 || i == x2 || j == y1 || j == y2)
+                {
+                    ejez = 1;
+                }
+                
+                int numero = CalcularNumero(i, j, z1, ejex, ejey, ejez);
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
@@ -313,11 +340,21 @@ public class Scripter : MonoBehaviour
         for (int j = y1; j < (y2+1); j++)
         {
             
-            for (int i = z1+1; i < z2; i++)
+            for (int k = z1+1; k < z2; k++)
             {
-                string llave = $"{z1},{j},{i}";
+                string llave = $"{x1},{j},{k}";
                 GameObject bloque = blockMap[llave];
-                int numero = CalcularNumero(x1, j, i);
+                
+                int ejex = 0;
+                int ejey = 1;
+                int ejez = 1;
+
+                if (j == y1 || j == y2 || k == z1 || k == z2)
+                {
+                    ejex = 1;
+                }
+                
+                int numero = CalcularNumero(x1, j, k, ejex, ejey, ejez);
                 bloque.GetComponent<BlockProperties>().number = numero;
 
             }
@@ -326,37 +363,70 @@ public class Scripter : MonoBehaviour
 
         for (int j = y1; j < y2+1; j++)
         {
-            for (int i = z1+1; i < z2; i++)
+            for (int k = z1+1; k < z2; k++)
             {
-                string llave = $"{z2},{j},{i}";
+                string llave = $"{x2},{j},{k}";
                 GameObject bloque = blockMap[llave];
-                int numero = CalcularNumero(x2, j, i);
+
+                int ejex = 0;
+                int ejey = 1;
+                int ejez = 1;
+
+                if (j == y1 || j == y2 || k == z1 || k == z2)
+                {
+                    ejex = 1;
+                }
+                
+                int numero = CalcularNumero(x2, j, k, ejex, ejey, ejez);
+                
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
 
         //TAPAS
         
-        for (int j = z1+1; j < z2; j++)
+        for (int k = z1+1; k < z2; k++)
         {
             for (int i = x1+1; i < x2; i++)
             {
-                string llave = $"{i},{y2},{j}";
+                string llave = $"{i},{y2},{k}";
                 GameObject bloque = blockMap[llave];
-                int numero = CalcularNumero(i, y2, j);
+
+                int ejex = 1;
+                int ejey = 0;
+                int ejez = 1;
+
+                if (i == x1 || i == x2 || k == z1 || k == z2)
+                {
+                    ejey = 1;
+                }
+                
+                int numero = CalcularNumero(i, y2, k, ejex, ejey, ejez);
+                
                 bloque.GetComponent<BlockProperties>().number = numero;
 
             }
         }
         
 
-        for (int j = z1+1; j < z2; j++)
+        for (int k = z1+1; k < z2; k++)
         {
             for (int i = x1+1; i < x2; i++)
             {
-                string llave = $"{i},{y1},{j}";
+                string llave = $"{i},{y1},{k}";
                 GameObject bloque = blockMap[llave];
-                int numero = CalcularNumero(i, y1, j);
+
+                int ejex = 1;
+                int ejey = 0;
+                int ejez = 1;
+
+                if (i == x1 || i == x2 || k == z1 || k == z2)
+                {
+                    ejey = 1;
+                }
+                
+                int numero = CalcularNumero(i, y1, k, ejex, ejey, ejez);
+                
                 bloque.GetComponent<BlockProperties>().number = numero;;
 
             }
