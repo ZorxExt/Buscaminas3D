@@ -23,7 +23,6 @@ public class Scripter : MonoBehaviour
     
 
 
-
     //Este script es estatico y publico, sus funciones son accesibles desde cualquier parte de la escena.
 
     void Start()
@@ -168,8 +167,8 @@ public class Scripter : MonoBehaviour
         {
             for (int i = x1; i < (x2 + 1) ; i++)
             {
-                bool isBomb = Scripter.scripter.GenerarBomba();
-                Scripter.scripter.SpawnBlock(isBomb,new Vector3(i, j, (z2 + 1)));
+                bool isBomb = GenerarBomba();
+                SpawnBlock(isBomb,new Vector3(i, j, (z2 + 1)));
 
             }
         }
@@ -178,8 +177,8 @@ public class Scripter : MonoBehaviour
         {
             for (int i = x1; i < (x2 + 1) ; i++)
             {
-                bool isBomb = Scripter.scripter.GenerarBomba();
-                Scripter.scripter.SpawnBlock(isBomb,new Vector3(i,j, z1 ));
+                bool isBomb = GenerarBomba();
+                SpawnBlock(isBomb,new Vector3(i,j, z1 ));
 
             }
         }
@@ -191,8 +190,8 @@ public class Scripter : MonoBehaviour
             
             for (int i = z1+1; i < z2+1; i++)
             {
-                bool isBomb = Scripter.scripter.GenerarBomba();
-                Scripter.scripter.SpawnBlock(isBomb,new Vector3(x1,j,i));
+                bool isBomb = GenerarBomba();
+                SpawnBlock(isBomb,new Vector3(x1,j,i));
 
             }
         }
@@ -202,8 +201,8 @@ public class Scripter : MonoBehaviour
         {
             for (int i = z1+1; i < z2+1; i++)
             {
-                bool isBomb = Scripter.scripter.GenerarBomba();
-                Scripter.scripter.SpawnBlock(isBomb, new Vector3(x2,j,i));
+                bool isBomb = GenerarBomba();
+                SpawnBlock(isBomb, new Vector3(x2,j,i));
             }
         }
         
@@ -214,8 +213,8 @@ public class Scripter : MonoBehaviour
         {
             for (int i = x1+1; i < x2; i++)
             {
-                bool isBomb = Scripter.scripter.GenerarBomba();
-                Scripter.scripter.SpawnBlock(isBomb,new Vector3(i,y2,j));
+                bool isBomb = GenerarBomba();
+                SpawnBlock(isBomb,new Vector3(i,y2,j));
 
             }
         }
@@ -225,8 +224,8 @@ public class Scripter : MonoBehaviour
         {
             for (int i = x1+1; i < x2; i++)
             {
-                bool isBomb = Scripter.scripter.GenerarBomba();
-                Scripter.scripter.SpawnBlock(isBomb,new Vector3(i,y1,j));
+                bool isBomb = GenerarBomba();
+                SpawnBlock(isBomb,new Vector3(i,y1,j));
 
             }
         }
@@ -245,8 +244,8 @@ public class Scripter : MonoBehaviour
             for (int i = x1; i < (x2 + 1); i++)
             {
                 string llave = $"{i},{j},{z2+1}";
-                GameObject bloque = Scripter.scripter.blockMap[llave];
-                int numero = Scripter.scripter.CalcularNumero(i, j, (z2 + 1));
+                GameObject bloque = blockMap[llave];
+                int numero = CalcularNumero(i, j, (z2 + 1));
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
@@ -256,8 +255,8 @@ public class Scripter : MonoBehaviour
             for (int i = x1; i < (x2 + 1); i++)
             {
                 string llave = $"{i},{j},{z1}";
-                GameObject bloque = Scripter.scripter.blockMap[llave];
-                int numero = Scripter.scripter.CalcularNumero(i, j, z1);
+                GameObject bloque = blockMap[llave];
+                int numero = CalcularNumero(i, j, z1);
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
@@ -270,8 +269,8 @@ public class Scripter : MonoBehaviour
             for (int i = z1+1; i < z2+1; i++)
             {
                 string llave = $"{z1},{j},{i}";
-                GameObject bloque = Scripter.scripter.blockMap[llave];
-                int numero = Scripter.scripter.CalcularNumero(x1, j, i);
+                GameObject bloque = blockMap[llave];
+                int numero = CalcularNumero(x1, j, i);
                 bloque.GetComponent<BlockProperties>().number = numero;
 
             }
@@ -283,8 +282,8 @@ public class Scripter : MonoBehaviour
             for (int i = z1+1; i < z2+1; i++)
             {
                 string llave = $"{z2},{j},{i}";
-                GameObject bloque = Scripter.scripter.blockMap[llave];
-                int numero = Scripter.scripter.CalcularNumero(x2, j, i);
+                GameObject bloque = blockMap[llave];
+                int numero = CalcularNumero(x2, j, i);
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
@@ -296,8 +295,8 @@ public class Scripter : MonoBehaviour
             for (int i = x1+1; i < x2; i++)
             {
                 string llave = $"{i},{y2},{j}";
-                GameObject bloque = Scripter.scripter.blockMap[llave];
-                int numero = Scripter.scripter.CalcularNumero(i, y2, j);
+                GameObject bloque = blockMap[llave];
+                int numero = CalcularNumero(i, y2, j);
                 bloque.GetComponent<BlockProperties>().number = numero;
 
             }
@@ -309,8 +308,8 @@ public class Scripter : MonoBehaviour
             for (int i = x1+1; i < x2; i++)
             {
                 string llave = $"{i},{y1},{j}";
-                GameObject bloque = Scripter.scripter.blockMap[llave];
-                int numero = Scripter.scripter.CalcularNumero(i, y1, j);
+                GameObject bloque = blockMap[llave];
+                int numero = CalcularNumero(i, y1, j);
                 bloque.GetComponent<BlockProperties>().number = numero;;
 
             }
