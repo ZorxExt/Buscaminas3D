@@ -5,11 +5,14 @@ using System.Security.Cryptography;
 using UnityEngine;
 using TMPro;
 using UnityEditor.IMGUI.Controls;
+using UnityEngine.SceneManagement;
 
 public class Scripter : MonoBehaviour
 {
     public int porcentajeBombas = 50;
     public static Scripter scripter;
+    public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>();
+    public bool lost = false;
 
     //Prefaps
     public GameObject bomba;
@@ -19,8 +22,7 @@ public class Scripter : MonoBehaviour
     
     private GameObject _pointed;
     private GameObject _newBlock;
-    public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>();
-    public bool lost = false;
+
     
 
 
@@ -343,6 +345,7 @@ public class Scripter : MonoBehaviour
             for (int k = z1+1; k < z2; k++)
             {
                 string llave = $"{x1},{j},{k}";
+                
                 GameObject bloque = blockMap[llave];
                 
                 int ejex = 0;
@@ -365,7 +368,9 @@ public class Scripter : MonoBehaviour
         {
             for (int k = z1+1; k < z2; k++)
             {
+
                 string llave = $"{x2},{j},{k}";
+
                 GameObject bloque = blockMap[llave];
 
                 int ejex = 0;
@@ -382,7 +387,6 @@ public class Scripter : MonoBehaviour
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
-
         //TAPAS
         
         for (int k = z1+1; k < z2; k++)
@@ -434,6 +438,21 @@ public class Scripter : MonoBehaviour
         
         
     }
+    
+    //Scene Manager
+    
+    public void ChangeScene(string sceneName)
+    {
+        if (sceneName == "salir")
+        {
+            Application.Quit();
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneName);    
+        }
+    }
+    
     
     
 }
