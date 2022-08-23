@@ -20,17 +20,17 @@ public class BlockProperties : MonoBehaviour
             GetComponentInChildren<TextMeshPro>().color = Color.red;   
         }
     }
-
-    private void OnMouseDown()
+    
+    private void OnMouseOver()
     {
-        Scripter.scripter.RecursiveDelete(gameObject.transform.position);
-
-        if (isBomb)
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Perdistes wey.");
+            Scripter.scripter.RecursiveDelete(gameObject.transform.position);
         }
 
+        if (Input.GetMouseButtonDown(1))
+        {
+            Scripter.scripter.FlagBlock(gameObject.transform.position);
+        }
     }
-    
-
 }

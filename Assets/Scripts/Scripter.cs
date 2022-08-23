@@ -54,6 +54,24 @@ public class Scripter : MonoBehaviour
     }
 
 
+    IEnumerator PointerFlag(Vector3 coordenadas)
+    {
+        GameObject pointerIt = Instantiate(pointer, coordenadas, Quaternion.identity);
+        yield return new WaitForSeconds(0.2f);
+        _pointed = pointerIt.GetComponent<Pointer>().contact;
+        Destroy(pointerIt);
+        _pointed.GetComponent<BlockProperties>().isFlagged = true;
+        _pointed.GetComponent<Renderer>().material.color = Color.blue;
+    }
+
+    public void FlagBlock(Vector3 coordenadas)
+    {
+        StartCoroutine(PointerFlag(coordenadas));
+    }
+    
+    
+    
+    
     IEnumerator PointerDelete(Vector3 coordenadas)
     {
         GameObject pointerIt = Instantiate(pointer, coordenadas, Quaternion.identity);
