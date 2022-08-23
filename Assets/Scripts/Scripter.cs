@@ -31,6 +31,7 @@ public class Scripter : MonoBehaviour
     void Start()
     {
         scripter = this;
+        
     }
 
 
@@ -443,13 +444,14 @@ public class Scripter : MonoBehaviour
     
     public void ChangeScene(string sceneName)
     {
+        
         if (sceneName == "salir")
         {
             Application.Quit();
         }
         else
         {
-            SceneManager.LoadScene(sceneName);    
+            SceneManager.LoadScene(sceneName);
         }
     }
     
