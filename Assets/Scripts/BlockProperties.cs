@@ -19,7 +19,11 @@ public class BlockProperties : MonoBehaviour
     
     private void OnMouseOver()
     {
-        if (Scripter.scripter.lost) return;
+        if (Scripter.scripter.lost)
+        {
+            Scripter.scripter.ChangeScene("SampleScene");
+            return;
+        }
 
         Vector3 position = gameObject.transform.position;
         
