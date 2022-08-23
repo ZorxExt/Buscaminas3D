@@ -156,6 +156,7 @@ MonoBehaviour:
   bomba: {fileID: 4159707100643489473, guid: 13c39db667865be4f962dddd2cb76013, type: 3}
   nobomba: {fileID: 8587532564906019682, guid: 3a926c79a1e8fac4791d4b9973fe816f, type: 3}
   pointer: {fileID: 2421464060420888196, guid: 6bc724216e997aa4ca7a1d5a83052c7f, type: 3}
+  lost: 0
 --- !u!4 &80754111
 Transform:
   m_ObjectHideFlags: 0
@@ -180,7 +181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 439471234}
-  - component: {fileID: 439471233}
+  - component: {fileID: 439471235}
   m_Layer: 0
   m_Name: SmartMaster
   m_TagString: Untagged
@@ -188,18 +189,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &439471233
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439471232}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62717a998c61fa5409f9cc18fffb84ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &439471234
 Transform:
   m_ObjectHideFlags: 0
@@ -215,6 +204,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &439471235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 439471232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62717a998c61fa5409f9cc18fffb84ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

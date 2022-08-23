@@ -108,7 +108,7 @@ public class Scripter : MonoBehaviour
 
         if (thisBlock.GetComponent<BlockProperties>().isBomb)
         {
-            thisBlock.GetComponent<Renderer>().material.color = Color.red;
+            thisBlock.GetComponent<Renderer>().material.color = Color.magenta;
             lost = true;
             return;
         }
