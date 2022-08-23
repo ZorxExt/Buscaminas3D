@@ -16,11 +16,8 @@ public class Scripter : MonoBehaviour
     public static Scripter scripter;
     public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>();
     public bool lost = false;
-<<<<<<< Updated upstream
     public int totalAmountBombs = 0;
-=======
     public GameObject deadUI;
->>>>>>> Stashed changes
 
     //Prefaps
     public GameObject bomba;
