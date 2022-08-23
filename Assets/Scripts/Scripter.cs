@@ -19,7 +19,8 @@ public class Scripter : MonoBehaviour
     
     private GameObject _pointed;
     private GameObject _newBlock;
-    public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>(); 
+    public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>();
+    public bool lost = false;
     
 
 
@@ -59,8 +60,19 @@ public class Scripter : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         _pointed = pointerIt.GetComponent<Pointer>().contact;
         Destroy(pointerIt);
-        _pointed.GetComponent<BlockProperties>().isFlagged = true;
-        _pointed.GetComponent<Renderer>().material.color = Color.blue;
+
+        bool isFlagged = _pointed.GetComponent<BlockProperties>().isFlagged;
+        
+        if (isFlagged)
+        {
+            _pointed.GetComponent<BlockProperties>().isFlagged = false;
+            _pointed.GetComponent<Renderer>().material.color = Color.white;
+        }
+        else
+        {
+            _pointed.GetComponent<BlockProperties>().isFlagged = true;
+            _pointed.GetComponent<Renderer>().material.color = Color.blue;
+        }
     }
 
     public void FlagBlock(Vector3 coordenadas)
@@ -86,7 +98,21 @@ public class Scripter : MonoBehaviour
     }
 
     public void DeleteBlock(Vector3 coordenadas)
-    {                                   
+    {       
+        int x = (int)coordenadas.x;
+        int y = (int)coordenadas.y;
+        int z = (int)coordenadas.z;
+        GameObject thisBlock = blockMap[$"{x},{y},{z}"];
+
+        if (thisBlock.GetComponent<BlockProperties>().isFlagged) return;
+
+        if (thisBlock.GetComponent<BlockProperties>().isBomb)
+        {
+            thisBlock.GetComponent<Renderer>().material.color = Color.red;
+            lost = true;
+            return;
+        }
+        
         StartCoroutine(PointerDelete(coordenadas));
     }
 
