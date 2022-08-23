@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
 using UnityEngine;
@@ -19,6 +20,7 @@ public class Scripter : MonoBehaviour
     public int totalAmountBombs = 0;
     public int totalAmountNoBombs = 0;
     public GameObject deadUI;
+    public int puntaje = 0;
 
     //Prefaps
     public GameObject bomba;
@@ -36,9 +38,10 @@ public class Scripter : MonoBehaviour
 
     void Start()
     {
-        scripter = this;
         deadUI.SetActive(false);
-        
+        scripter = this;
+
+
     }
 
 
@@ -102,10 +105,20 @@ public class Scripter : MonoBehaviour
         Destroy(pointerIt);
         _pointed.GetComponent<MeshRenderer>().enabled = false;
         totalAmountNoBombs--;
+        
 
         if (totalAmountNoBombs == 0)
         {
-            Debug.Log("Fin");
+            foreach (var item in blockMap.Keys)
+            {
+                Destroy(blockMap[item]);
+            }
+            blockMap.Clear();
+            puntaje++;
+            Debug.Log(puntaje);
+            
+            scripter.CreateTable(-5,4,-5,4,-5,4);
+
         }
         
         if (_pointed.GetComponent<BlockProperties>().number == 0)
@@ -159,7 +172,6 @@ public class Scripter : MonoBehaviour
                             if (bloqueAdyacente.GetComponent<BlockProperties>().number != -1
                                 && bloqueAdyacente.GetComponent<BlockProperties>().isRevealed == false)
                             {
-                                Debug.Log(bloqueAdyacente);
                                 RecursiveDelete(bloqueAdyacente.transform.position);
 
                             }
@@ -172,20 +184,6 @@ public class Scripter : MonoBehaviour
     }
     
     
-    
-
-    // o sea cada bloque tiene cierta probabilidad de ser bomba
-    // Podríamos hacerlo de otra manera mejor pero esto nos sirve para seguir avanzando pq es cortito
-    /*public bool GenerarBomba()
-    {
-        int rnd = UnityEngine.Random.Range(0, 100);
-        if (rnd < porcentajeBombas)
-        {
-            return true;
-        }
-
-        return false;
-    }*/
 
 
     public bool[] PoblarArray(int length, bool valor)
@@ -295,6 +293,9 @@ public class Scripter : MonoBehaviour
 
     public void CreateTable(int x1, int x2, int y1, int y2, int z1, int z2)
     {
+        totalAmountBombs = 0;
+        lost = false;
+        
         int width = Math.Abs(x1 - x2) + 1;
         int height = Math.Abs(y1 - y2) + 1;
         int depth = Math.Abs(z1 - z2) + 1;

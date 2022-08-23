@@ -155,6 +155,7 @@ MonoBehaviour:
   porcentajeBombas: 25
   lost: 0
   totalAmountBombs: 0
+  totalAmountNoBombs: 0
   deadUI: {fileID: 289159744}
   bomba: {fileID: 4159707100643489473, guid: 13c39db667865be4f962dddd2cb76013, type: 3}
   nobomba: {fileID: 8587532564906019682, guid: 3a926c79a1e8fac4791d4b9973fe816f, type: 3}
@@ -1084,7 +1085,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1136321775}
   m_LocalRotation: {x: 0.16062893, y: -0.27126652, z: 0.04596858, w: 0.94789225}
-  m_LocalPosition: {x: -0.5, y: 0, z: -0.5}
+  m_LocalPosition: {x: -0.5, y: -0.5, z: -0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
