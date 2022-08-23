@@ -20,15 +20,18 @@ public class BlockProperties : MonoBehaviour
     private void OnMouseOver()
     {
         if (Scripter.scripter.lost) return;
+
+        Vector3 position = gameObject.transform.position;
         
         if (Input.GetMouseButtonDown(0))
         {
-            Scripter.scripter.RecursiveDelete(gameObject.transform.position);
+            Scripter.scripter.RecursiveDelete(position);
+            Debug.Log(position);
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            Scripter.scripter.FlagBlock(gameObject.transform.position);
+            Scripter.scripter.FlagBlock(position);
         }
     }
 }

@@ -168,7 +168,7 @@ public class Scripter : MonoBehaviour
         return false;
     }
     
-    public int CalcularNumero(int i, int j, int k)
+    public int CalcularNumero(int i, int j, int k) //int ejex, int ejey, int ejez
     {
         string thisKey = $"{i},{j},{k}";
         GameObject thisBlock = blockMap[thisKey];
@@ -178,14 +178,16 @@ public class Scripter : MonoBehaviour
             return -1;
         }
         
-        int contador = 0;
         
+        int contador = 0;
+
         for (int x = -1; x <= 1; x++)
         {
             for (int y = -1; y <= 1; y++)
             {
                 for (int z = -1; z <= 1; z++)
                 {
+
                     string key = $"{x + i},{y + j},{z + k}";
                     if (blockMap.ContainsKey(key))
                     {
@@ -204,6 +206,7 @@ public class Scripter : MonoBehaviour
 
     public void CreateTable(int x1, int x2, int y1, int y2, int z1, int z2)
     {
+
         
         //PAREDES GRANDES
         
