@@ -11,10 +11,25 @@ public class BlockProperties : MonoBehaviour
     public bool isRevealed = false;
     public bool isFlagged;
     public int number;
+    public AudioClip deleteBlockSound;
+    public AudioClip loseSound;
+    private AudioSource _blockSound;
+    private AudioClip _blockSoundClip;
 
     private void Start()
     {
         GetComponentInChildren<TextMeshPro>().text = number + "";
+        _blockSound = gameObject.GetComponent<AudioSource>();
+
+        if (isBomb)
+        {
+            _blockSoundClip = loseSound;
+        }
+        else
+        {
+            _blockSoundClip = deleteBlockSound;
+        }
+        
     }
     
     private void OnMouseOver()
@@ -28,11 +43,15 @@ public class BlockProperties : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         {
+            _blockSound.PlayOneShot(deleteBlockSound);
+            Debug.Log("lol");
             Scripter.scripter.RecursiveDelete(position);
+
 
             if (isBomb)
             {
                 Scripter.scripter.lost = true;
+                _blockSound.PlayOneShot(loseSound);
                 Scripter.scripter.RevelarBombas();
             }
 
