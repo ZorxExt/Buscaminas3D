@@ -36,6 +36,8 @@ public class BlockProperties : MonoBehaviour
                 Scripter.scripter.RevelarBombas();
             }
 
+            //gameObject.GetComponent<Renderer>().material.color = Color.green;
+
         }
 
         if (Input.GetMouseButtonDown(1))
