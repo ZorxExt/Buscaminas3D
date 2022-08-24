@@ -50,10 +50,15 @@ public class Scripter : MonoBehaviour
         foreach (var item in blockMap.Keys)
         {
             GameObject thisBlock = blockMap[item];
-            if (thisBlock.GetComponent<BlockProperties>().isBomb)
+            bool isBomb = thisBlock.GetComponent<BlockProperties>().isBomb;
+            bool isFlagged = thisBlock.GetComponent<BlockProperties>().isFlagged;
+            if (isBomb)
             {
                 Vector3 posicion = thisBlock.transform.position;
                 DeleteBlock(posicion);
+            } else if (isFlagged)
+            {
+                thisBlock.GetComponent<Renderer>().material.color = Color.red;
             }
         }
     }
@@ -118,6 +123,7 @@ public class Scripter : MonoBehaviour
         _pointed = pointerIt.GetComponent<Pointer>().contact;
         Destroy(pointerIt);
         _pointed.GetComponent<MeshRenderer>().enabled = false;
+        _pointed.GetComponent<Collider>().enabled = false;
         totalAmountNoBombs--;
         
 
