@@ -30,22 +30,11 @@ public class Renderizado : MonoBehaviour
     public int puntaje;
     
     //Variables
-
     public int porcentajeBombas = 10;
     public bool lost = false;
-    
-    //Colores
-    public Color flagColor = Color.gray; //Tanto para el modo claro como para el modo oscuro
-    public Color flagColorWrong = Color.red; //Tanto para el modo claro como para el modo oscuro
-    public Color skyboxColorClaro = new Color (0.9f, 0.9f, 0.9f);
-    
-    //Materiales
-    public Material bloqueActual;
-    public Material bloqueActualInvertido;
-    public Material darkBlockMaterial;
-    public Material whiteBlockMaterial;
-    
-    
+    public bool temaOscuro = true;
+
+
     void Start()
     {
         renderizado = this;
@@ -79,10 +68,16 @@ public class Renderizado : MonoBehaviour
         int x = (int)coordenadas.x;
         int y = (int)coordenadas.y;
         int z = (int)coordenadas.z;
+        
         GameObject thisBlock = blockMap[$"{x},{y},{z}"];
 
-        if (thisBlock.GetComponent<BlockProperties>().isFlagged || thisBlock.GetComponent<BlockProperties>().isBomb)
+        if (thisBlock.GetComponent<BlockProperties>().isFlagged)
         {
+            return;
+        }
+        else if (thisBlock.GetComponent<BlockProperties>().isBomb)
+        {
+            lost = true;
             return;
         }
         
@@ -140,19 +135,7 @@ public class Renderizado : MonoBehaviour
             GameObject thisBlock = blockMap[item];
 
             thisBlock.GetComponent<BlockProperties>().isRevealed = true;
-            
-            bool isBomb = thisBlock.GetComponent<BlockProperties>().isBomb;
-            bool isFlagged = thisBlock.GetComponent<BlockProperties>().isFlagged;
-            
-            if (isBomb)
-            {
-                thisBlock.GetComponent<MeshRenderer>().material = bloqueActualInvertido;
-            }
-            else if (isFlagged)
-            {
-                thisBlock.GetComponent<MeshRenderer>().material = whiteBlockMaterial;
-                thisBlock.GetComponent<MeshRenderer>().material.color = flagColorWrong;
-            }
+
         }
     }
 

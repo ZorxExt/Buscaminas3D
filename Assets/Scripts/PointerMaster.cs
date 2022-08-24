@@ -38,20 +38,7 @@ public class PointerMaster : MonoBehaviour
         
         Destroy(pointerIt);
 
-        bool isFlagged = pointed.GetComponent<BlockProperties>().isFlagged;
-
-        if (isFlagged)
-        {
-            pointed.GetComponent<MeshRenderer>().material = Renderizado.renderizado.bloqueActual;
-            pointed.GetComponent<MeshRenderer>().material.color = Color.white;
-        }
-        else
-        {
-            pointed.GetComponent<MeshRenderer>().material = Renderizado.renderizado.whiteBlockMaterial;
-            pointed.GetComponent<MeshRenderer>().material.color = Renderizado.renderizado.flagColor;
-        }
-        
-        pointed.GetComponent<BlockProperties>().isFlagged = !isFlagged;
+        pointed.GetComponent<BlockProperties>().isFlagged = !pointed.GetComponent<BlockProperties>().isFlagged;
     }
     
     

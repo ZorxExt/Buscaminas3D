@@ -32,5 +32,10 @@ public class CenterControl : MonoBehaviour
         {
             gameObject.transform.Rotate(Time.deltaTime * 50 *Vector3.forward);
         }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            Renderizado.renderizado.temaOscuro = !Renderizado.renderizado.temaOscuro;
+        }
     }
 }

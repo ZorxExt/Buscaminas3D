@@ -201,12 +201,7 @@ MonoBehaviour:
   puntaje: 0
   porcentajeBombas: 10
   lost: 0
-  flagColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-  flagColorWrong: {r: 1, g: 0, b: 0, a: 1}
-  bloqueActual: {fileID: 2100000, guid: a1aabe48a6fb8664abd3d1e0f6865ab2, type: 2}
-  bloqueActualInvertido: {fileID: 2100000, guid: 8a1633785bb883d4d9eef70d2e181ee0, type: 2}
-  darkBlockMaterial: {fileID: 2100000, guid: 8a1633785bb883d4d9eef70d2e181ee0, type: 2}
-  whiteBlockMaterial: {fileID: 2100000, guid: a1aabe48a6fb8664abd3d1e0f6865ab2, type: 2}
+  temaOscuro: 1
 --- !u!1 &289159744
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,6 +382,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62717a998c61fa5409f9cc18fffb84ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bloqueActual: {fileID: 2100000, guid: a1aabe48a6fb8664abd3d1e0f6865ab2, type: 2}
+  bloqueActualInvertido: {fileID: 2100000, guid: 8a1633785bb883d4d9eef70d2e181ee0, type: 2}
+  darkBlockMaterial: {fileID: 2100000, guid: 8a1633785bb883d4d9eef70d2e181ee0, type: 2}
+  whiteBlockMaterial: {fileID: 2100000, guid: a1aabe48a6fb8664abd3d1e0f6865ab2, type: 2}
+  flagColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  flagColorWrong: {r: 1, g: 0, b: 0, a: 1}
+  skyboxColorClaro: {r: 0.9, g: 0.9, b: 0.9, a: 1}
+  skyboxColorOscuro: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &557443989
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +418,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 3.58
   m_Range: 15
   m_SpotAngle: 30
@@ -577,8 +580,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 0.30980393, g: 0.30980393, b: 0.30980393, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.6603774, g: 0.6603774, b: 0.6603774, a: 1}
+  m_Intensity: 0.5
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
