@@ -30,6 +30,12 @@ public class BlockProperties : MonoBehaviour
         {
             Scripter.scripter.RecursiveDelete(position);
 
+            if (isBomb)
+            {
+                Scripter.scripter.lost = true;
+                Scripter.scripter.RevelarBombas();
+            }
+
         }
 
         if (Input.GetMouseButtonDown(1))
