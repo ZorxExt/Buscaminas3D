@@ -11,140 +11,52 @@ using UnityEditor.IMGUI.Controls;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class Scripter : MonoBehaviour
+public class Renderizado : MonoBehaviour
 {
-    public int porcentajeBombas = 15;
-    public static Scripter scripter;
-    public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>();
-    public bool lost = false;
-    public int totalAmountBombs = 0;
-    public int totalAmountNoBombs = 0;
-    public GameObject deadUI;
-    public int puntaje = 0;
 
-    public Color blockColor;
-    public Color flagColor;
-    public Color bombColor;
+    public static Renderizado renderizado;
     
-
+    //Diccionario
+    public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>();
+    
     //Prefaps
     public GameObject bomba;
     public GameObject nobomba;
     public GameObject pointer;
-    public GameObject luzDeAdentro;
-    public GameObject corazon;
-    public GameObject colorLuzAfuera;
-    //
     
-    private GameObject _pointed;
-    private GameObject _newBlock;
-   
-   //
-   
-   private int _temaColor = 0;
-   private string[] _todosLosColores = {"red", "azul"};
-
+    //Contadores
+    public int totalAmountNoBombs;
+    public int totalAmountBombs;
+    public int puntaje;
     
+    //Variables
 
-
-    //Este script es estatico y publico, sus funciones son accesibles desde cualquier parte de la escena.
-
+    public int porcentajeBombas = 10;
+    public bool lost = false;
+    
+    
+    
+    
+    
+    
     void Start()
     {
-        deadUI.SetActive(false);
-        scripter = this;
-
-
+        renderizado = this;
     }
-    
-    private void Update()
-    {
-    
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            _temaColor++;
-            if (_temaColor == _todosLosColores.Length)
-            {
-                _temaColor = 0;
-            }
-        } else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            _temaColor--;
-            if (_temaColor < 0)
-            {
-                _temaColor = _todosLosColores.Length - 1;
-            }
-        }
-        GetColor(_todosLosColores[_temaColor]);
-    }
-    
 
-
-    public void RevelarBombas()
-    {
-        foreach (var item in blockMap.Keys)
-        {
-            GameObject thisBlock = blockMap[item];
-            bool isBomb = thisBlock.GetComponent<BlockProperties>().isBomb;
-            bool isFlagged = thisBlock.GetComponent<BlockProperties>().isFlagged;
-            if (isBomb)
-            {
-                Vector3 posicion = thisBlock.transform.position;
-                DeleteBlock(posicion);
-            } else if (isFlagged)
-            {
-                thisBlock.GetComponent<Renderer>().material.color = bombColor;
-            }
-        }
-    }
     
-    public void GetColor(string color)
-    {
-        
-        Color colorCorazon = new Color (0.0f, 0.0f, 0.0f, 0.7f);
-        Color colorLuzAdentro = new Color (1.0f, 1.0f, 1.0f);
-        Color colorLuzAfuera = new Color (1.0f, 1.0f, 1.0f);
-        
-        switch(color)
-        {
-            case "red":
-                colorCorazon = new Color(0.7f, 0.0f, 0.1f, 0.7f);
-                colorLuzAdentro = new Color(1.0f, 0.0f, 0.0f);
-                break;
-                
-            case "azul":
-                colorCorazon = new Color (0.1f, 0.3f, 0.6f, 0.7f);
-                colorLuzAdentro = new Color (0.0f, 0.0f, 1.0f);
-                break;
-            /*case "cian":
-                colorCorazon = new Color ();*/
-            /*case "verde":
-            case "rosa":
-            case "violeta":
-            case "naranja":
-            case "amarillo":
-            case "sin color":*/
-        }
-            
-        luzDeAdentro.GetComponent<Light>().color = colorLuzAdentro;
-        corazon.GetComponent<Renderer>().material.color = colorCorazon;
-        
-    }
-    
-
-    // Instancia "bomba" o "nobomba" en *coordenadas* y dentro un *numero*
+    // Spawn block in "coordenadas"
     public void SpawnBlock(bool isBomb, Vector3 coordenadas)
     {
+        GameObject newBlock;
         switch (isBomb)
         {
             case true:
-                _newBlock = Instantiate(bomba, coordenadas, Quaternion.identity);
-                _newBlock.GetComponent<Renderer>().material.color = blockColor;
+                newBlock = Instantiate(bomba, coordenadas, Quaternion.identity);
                 break;
             case false:
-                _newBlock = Instantiate(nobomba, coordenadas, Quaternion.identity);
+                newBlock = Instantiate(nobomba, coordenadas, Quaternion.identity);
                 totalAmountNoBombs++;
-                _newBlock.GetComponent<Renderer>().material.color = blockColor;
                 break;
         }
 
@@ -152,72 +64,9 @@ public class Scripter : MonoBehaviour
         int x = (int)coordenadas.x;
         int y = (int)coordenadas.y;
         int z = (int)coordenadas.z;
-        blockMap.Add($"{x},{y},{z}", _newBlock);
-
-    }
-
-
-    IEnumerator PointerFlag(Vector3 coordenadas)
-    {
-        GameObject pointerIt = Instantiate(pointer, coordenadas, Quaternion.identity);
-        yield return new WaitForSeconds(0.2f);
-        _pointed = pointerIt.GetComponent<Pointer>().contact;
-        Destroy(pointerIt);
-
-        bool isFlagged = _pointed.GetComponent<BlockProperties>().isFlagged;
-        
-        if (isFlagged)
-        {
-            _pointed.GetComponent<BlockProperties>().isFlagged = false;
-            _pointed.GetComponent<Renderer>().material.color = blockColor;
-        }
-        else
-        {
-            _pointed.GetComponent<BlockProperties>().isFlagged = true;
-            _pointed.GetComponent<Renderer>().material.color = flagColor;
-        }
-    }
-
-    public void FlagBlock(Vector3 coordenadas)
-    {
-        StartCoroutine(PointerFlag(coordenadas));
+        blockMap.Add($"{x},{y},{z}", newBlock);
     }
     
-    
-    
-    
-    IEnumerator PointerDelete(Vector3 coordenadas)
-    {
-        GameObject pointerIt = Instantiate(pointer, coordenadas, Quaternion.identity);
-        yield return new WaitForSeconds(0.2f);
-        _pointed = pointerIt.GetComponent<Pointer>().contact;
-        Destroy(pointerIt);
-        _pointed.GetComponent<MeshRenderer>().enabled = false;
-        _pointed.GetComponent<Collider>().enabled = false;
-        totalAmountNoBombs--;
-        
-
-        if (totalAmountNoBombs == 0)
-        {
-            foreach (var item in blockMap.Keys)
-            {
-                Destroy(blockMap[item]);
-            }
-            blockMap.Clear();
-            puntaje++;
-            Debug.Log(puntaje);
-            
-            scripter.CreateTable(-5,4,-5,4,-5,4);
-
-        }
-        
-        if (_pointed.GetComponent<BlockProperties>().number == 0)
-        {
-            _pointed.GetComponentInChildren<TextMeshPro>().text = "";
-        }
-
-    }
-
     public void DeleteBlock(Vector3 coordenadas)
     {       
         int x = (int)coordenadas.x;
@@ -225,19 +74,17 @@ public class Scripter : MonoBehaviour
         int z = (int)coordenadas.z;
         GameObject thisBlock = blockMap[$"{x},{y},{z}"];
 
-        if (thisBlock.GetComponent<BlockProperties>().isFlagged) return;
-
-        if (thisBlock.GetComponent<BlockProperties>().isBomb)
+        if (thisBlock.GetComponent<BlockProperties>().isFlagged || thisBlock.GetComponent<BlockProperties>().isBomb)
         {
-            thisBlock.GetComponent<Renderer>().material.color = bombColor;
-            ActivateUIDead();
             return;
         }
         
-        StartCoroutine(PointerDelete(coordenadas));
+        StartCoroutine(gameObject.GetComponent<PointerMaster>().PointerDelete(coordenadas));
     }
 
-    public void RecursiveDelete(Vector3 coordenadas)
+    
+
+    public void ClickDelete(Vector3 coordenadas)
     {
         DeleteBlock(coordenadas);
         int i = (int)coordenadas.x;
@@ -261,8 +108,7 @@ public class Scripter : MonoBehaviour
                             if (bloqueAdyacente.GetComponent<BlockProperties>().number != -1
                                 && bloqueAdyacente.GetComponent<BlockProperties>().isRevealed == false)
                             {
-                                RecursiveDelete(bloqueAdyacente.transform.position);
-
+                                ClickDelete(bloqueAdyacente.transform.position);
                             }
                             
                         }
@@ -270,11 +116,113 @@ public class Scripter : MonoBehaviour
                 }
             }
         }
+
+        if (totalAmountNoBombs == 0)
+        {
+            BorrarBlockMap();
+        }
+    }
+
+    public void ClickFlag(Vector3 coordenadas)
+    {
+        StartCoroutine(gameObject.GetComponent<PointerMaster>().PointerFlag(coordenadas));
+    }
+    
+    public void RevelarBombas()
+    {
+        foreach (var item in blockMap.Keys)
+        {
+            GameObject thisBlock = blockMap[item];
+            
+            bool isBomb = thisBlock.GetComponent<BlockProperties>().isBomb;
+            bool isFlagged = thisBlock.GetComponent<BlockProperties>().isFlagged;
+            
+            if (isBomb)
+            {
+                //MOSTRAS TODAS LAS BOMBAS CUANDO PERDES !!!
+            } else if (isFlagged)
+            {
+                //MOSTRAS BANDERAS MAL COLOCADAS !!!
+            }
+        }
+    }
+
+
+    public void BorrarBlockMap()
+    {
+        foreach (var item in blockMap.Keys)
+        {
+            Destroy(blockMap[item]);
+        }
+        blockMap.Clear();
+        puntaje++;
+        
+    }
+
+
+/* COLORES!
+
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            _temaColor++;
+            if (_temaColor == _todosLosColores.Length)
+            {
+                _temaColor = 0;
+            }
+        } else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            _temaColor--;
+            if (_temaColor < 0)
+            {
+                _temaColor = _todosLosColores.Length - 1;
+            }
+        }
+        GetColor(_todosLosColores[_temaColor]);
+        
+        
+            public void GetColor(string color)
+    {
+        
+        Color colorCorazon = new Color (0.0f, 0.0f, 0.0f, 0.7f);
+        Color colorLuzAdentro = new Color (1.0f, 1.0f, 1.0f);
+        Color colorLuzAfuera = new Color (1.0f, 1.0f, 1.0f);
+        
+        switch(color)
+        {
+            case "red":
+                colorCorazon = new Color(0.7f, 0.0f, 0.1f, 0.7f);
+                colorLuzAdentro = new Color(1.0f, 0.0f, 0.0f);
+                break;
+                
+            case "azul":
+                colorCorazon = new Color (0.1f, 0.3f, 0.6f, 0.7f);
+                colorLuzAdentro = new Color (0.0f, 0.0f, 1.0f);
+                break;
+
+        }
+            
+        luzDeAdentro.GetComponent<Light>().color = colorLuzAdentro;
+        corazon.GetComponent<Renderer>().material.color = colorCorazon;
+        
     }
     
     
+*/
 
 
+
+
+
+
+
+
+
+
+
+    // Logica y creacion tablero
+    
+    
     public bool[] PoblarArray(int length, bool valor)
     {
         bool[] array = new bool[length];
@@ -685,34 +633,5 @@ public class Scripter : MonoBehaviour
 
             }
         }
-
-        Debug.Log(totalAmountBombs);
-        Debug.Log(blockMap.Count);
-
     }
-    
-    //Scene Manager
-    
-    public void ChangeScene(string sceneName)
-    {
-        
-        if (sceneName == "salir")
-        {
-            Application.Quit();
-        }
-        else
-        {
-            SceneManager.LoadScene(sceneName);
-            
-        }
-    }
-    
-    // UI Mangager
-
-    public void ActivateUIDead()
-    {
-        deadUI.SetActive(true);
-    }
-    
-    
 }

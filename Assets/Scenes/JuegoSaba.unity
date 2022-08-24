@@ -132,8 +132,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 80754111}
-  - component: {fileID: 80754110}
   - component: {fileID: 80754112}
+  - component: {fileID: 80754113}
+  - component: {fileID: 80754114}
   m_Layer: 0
   m_Name: Scripter
   m_TagString: Untagged
@@ -141,30 +142,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &80754110
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 80754109}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dccf3665b6f7314cb09e3b52aed735f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  porcentajeBombas: 15
-  lost: 0
-  totalAmountBombs: 0
-  totalAmountNoBombs: 0
-  deadUI: {fileID: 289159744}
-  puntaje: 0
-  blockColor: {r: 1, g: 1, b: 1, a: 0}
-  flagColor: {r: 0.8784314, g: 0.6509804, b: 0.21960784, a: 0}
-  bombColor: {r: 0.5566038, g: 0.16540584, b: 0.16540584, a: 0}
-  bomba: {fileID: 4159707100643489473, guid: 13c39db667865be4f962dddd2cb76013, type: 3}
-  nobomba: {fileID: 8587532564906019682, guid: 3a926c79a1e8fac4791d4b9973fe816f, type: 3}
-  pointer: {fileID: 2421464060420888196, guid: 6bc724216e997aa4ca7a1d5a83052c7f, type: 3}
 --- !u!4 &80754111
 Transform:
   m_ObjectHideFlags: 0
@@ -194,6 +171,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darkBlockMaterial: {fileID: 2100000, guid: c5dd5d67bad8a1642a19af06626eca0a, type: 2}
   whiteBlockMaterial: {fileID: 2100000, guid: 7e1b135461c472345816109a9c4359ef, type: 2}
+--- !u!114 &80754113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80754109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e7a7dfbf97aee9499397f0be40393ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &80754114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 80754109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e2291355da6e3340bc16fc0f9998420, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bomba: {fileID: 4159707100643489473, guid: 13c39db667865be4f962dddd2cb76013, type: 3}
+  nobomba: {fileID: 8587532564906019682, guid: 3a926c79a1e8fac4791d4b9973fe816f, type: 3}
+  pointer: {fileID: 2421464060420888196, guid: 6bc724216e997aa4ca7a1d5a83052c7f, type: 3}
+  totalAmountNoBombs: 0
+  totalAmountBombs: 0
+  puntaje: 0
+  porcentajeBombas: 10
+  lost: 0
 --- !u!1 &289159744
 GameObject:
   m_ObjectHideFlags: 0
@@ -571,7 +580,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -1501,6 +1510,7 @@ GameObject:
   - component: {fileID: 1312323148}
   - component: {fileID: 1312323147}
   - component: {fileID: 1312323146}
+  - component: {fileID: 1312323150}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1592,6 +1602,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1312323150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1312323145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f14b84c5b35c736458140eea880d4e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1808025959
 GameObject:
   m_ObjectHideFlags: 0
@@ -1676,9 +1698,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 80754110}
-        m_TargetAssemblyTypeName: Scripter, Assembly-CSharp
-        m_MethodName: ChangeScene
+      - m_Target: {fileID: 1312323150}
+        m_TargetAssemblyTypeName: GestorEscenas, Assembly-CSharp
+        m_MethodName: CambiarEscena
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1810,9 +1832,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 80754110}
-        m_TargetAssemblyTypeName: Scripter, Assembly-CSharp
-        m_MethodName: ChangeScene
+      - m_Target: {fileID: 1312323150}
+        m_TargetAssemblyTypeName: GestorEscenas, Assembly-CSharp
+        m_MethodName: CambiarEscena
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

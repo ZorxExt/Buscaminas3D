@@ -24,7 +24,7 @@ public class BlockProperties : MonoBehaviour
     
     private void OnMouseOver()
     {
-        if (Scripter.scripter.lost)
+        if (Renderizado.renderizado.lost)
         {
             return;
         }
@@ -33,26 +33,24 @@ public class BlockProperties : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         {
-            Scripter.scripter.RecursiveDelete(position);
+            Renderizado.renderizado.ClickDelete(position);
             
             if (isBomb)
             {
-                Scripter.scripter.lost = true;
+                Renderizado.renderizado.lost = true;
                 _blockSound.PlayOneShot(loseSound);
-                Scripter.scripter.RevelarBombas();
+                Renderizado.renderizado.RevelarBombas();
             }
             else
             {
                 _blockSound.PlayOneShot(deleteBlockSound);
             }
 
-            //gameObject.GetComponent<Renderer>().material.color = Color.green;
-
         }
 
         if (Input.GetMouseButtonDown(1))
         {
-            Scripter.scripter.FlagBlock(position);
+            Renderizado.renderizado.ClickFlag(position);
         }
     }
 }
