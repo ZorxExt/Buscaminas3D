@@ -21,7 +21,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BackTex:
-        m_Texture: {fileID: 8600000, guid: 3b655ff1477d07f4d9f96b0c307f53be, type: 2}
+        m_Texture: {fileID: 2800000, guid: b8325c5b0630ca340b7ce5c746e26a7d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DownTex:
-        m_Texture: {fileID: 8600000, guid: 3b655ff1477d07f4d9f96b0c307f53be, type: 2}
+        m_Texture: {fileID: 2800000, guid: b8325c5b0630ca340b7ce5c746e26a7d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -49,11 +49,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FrontTex:
-        m_Texture: {fileID: 8600000, guid: 3b655ff1477d07f4d9f96b0c307f53be, type: 2}
+        m_Texture: {fileID: 2800000, guid: b8325c5b0630ca340b7ce5c746e26a7d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _LeftTex:
-        m_Texture: {fileID: 8600000, guid: 3b655ff1477d07f4d9f96b0c307f53be, type: 2}
+        m_Texture: {fileID: 2800000, guid: b8325c5b0630ca340b7ce5c746e26a7d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -73,11 +73,11 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _RightTex:
-        m_Texture: {fileID: 8600000, guid: 3b655ff1477d07f4d9f96b0c307f53be, type: 2}
+        m_Texture: {fileID: 2800000, guid: b8325c5b0630ca340b7ce5c746e26a7d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _UpTex:
-        m_Texture: {fileID: 8600000, guid: 3b655ff1477d07f4d9f96b0c307f53be, type: 2}
+        m_Texture: {fileID: 2800000, guid: b8325c5b0630ca340b7ce5c746e26a7d, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -103,5 +103,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _Tint: {r: 0, g: 0, b: 0, a: 0.5}
   m_BuildTextureStacks: []
