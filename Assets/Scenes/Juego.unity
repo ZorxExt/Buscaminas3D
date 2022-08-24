@@ -152,15 +152,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dccf3665b6f7314cb09e3b52aed735f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  porcentajeBombas: 15
+  porcentajeBombas: 3
   lost: 0
   totalAmountBombs: 0
   totalAmountNoBombs: 0
   deadUI: {fileID: 289159744}
   puntaje: 0
+  blockColor: {r: 0, g: 0, b: 0, a: 0}
+  flagColor: {r: 0, g: 0, b: 0, a: 0}
+  bombColor: {r: 0, g: 0, b: 0, a: 0}
   bomba: {fileID: 4159707100643489473, guid: 13c39db667865be4f962dddd2cb76013, type: 3}
   nobomba: {fileID: 8587532564906019682, guid: 3a926c79a1e8fac4791d4b9973fe816f, type: 3}
   pointer: {fileID: 2421464060420888196, guid: 6bc724216e997aa4ca7a1d5a83052c7f, type: 3}
+  luzDeAdentro: {fileID: 1350424477}
+  corazon: {fileID: 971419478}
+  colorLuzAfuera: {fileID: 705507993}
 --- !u!4 &80754111
 Transform:
   m_ObjectHideFlags: 0
@@ -1239,8 +1245,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
-  m_Range: 10
+  m_Intensity: 20
+  m_Range: 15
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
