@@ -22,6 +22,11 @@ public class Scripter : MonoBehaviour
     public GameObject deadUI;
     public int puntaje = 0;
 
+    public Color blockColor;
+    public Color flagColor;
+    public Color bombColor;
+    
+
     //Prefaps
     public GameObject bomba;
     public GameObject nobomba;
@@ -58,7 +63,7 @@ public class Scripter : MonoBehaviour
                 DeleteBlock(posicion);
             } else if (isFlagged)
             {
-                thisBlock.GetComponent<Renderer>().material.color = Color.red;
+                thisBlock.GetComponent<Renderer>().material.color = bombColor;
             }
         }
     }
@@ -71,10 +76,12 @@ public class Scripter : MonoBehaviour
         {
             case true:
                 _newBlock = Instantiate(bomba, coordenadas, Quaternion.identity);
+                _newBlock.GetComponent<Renderer>().material.color = blockColor;
                 break;
             case false:
                 _newBlock = Instantiate(nobomba, coordenadas, Quaternion.identity);
                 totalAmountNoBombs++;
+                _newBlock.GetComponent<Renderer>().material.color = blockColor;
                 break;
         }
 
@@ -99,12 +106,12 @@ public class Scripter : MonoBehaviour
         if (isFlagged)
         {
             _pointed.GetComponent<BlockProperties>().isFlagged = false;
-            _pointed.GetComponent<Renderer>().material.color = Color.white;
+            _pointed.GetComponent<Renderer>().material.color = blockColor;
         }
         else
         {
             _pointed.GetComponent<BlockProperties>().isFlagged = true;
-            _pointed.GetComponent<Renderer>().material.color = Color.blue;
+            _pointed.GetComponent<Renderer>().material.color = flagColor;
         }
     }
 
@@ -159,7 +166,7 @@ public class Scripter : MonoBehaviour
 
         if (thisBlock.GetComponent<BlockProperties>().isBomb)
         {
-            thisBlock.GetComponent<Renderer>().material.color = Color.magenta;
+            thisBlock.GetComponent<Renderer>().material.color = bombColor;
             ActivateUIDead();
             return;
         }
