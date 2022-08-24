@@ -31,10 +31,18 @@ public class Scripter : MonoBehaviour
     public GameObject bomba;
     public GameObject nobomba;
     public GameObject pointer;
+    public GameObject luzDeAdentro;
+    public GameObject corazon;
+    public GameObject colorLuzAfuera;
     //
     
     private GameObject _pointed;
     private GameObject _newBlock;
+   
+   //
+   
+   private int _temaColor = 0;
+   private string[] _todosLosColores = {"red", "azul"};
 
     
 
@@ -48,6 +56,28 @@ public class Scripter : MonoBehaviour
 
 
     }
+    
+    private void Update()
+    {
+    
+        if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            _temaColor++;
+            if (_temaColor == _todosLosColores.Length)
+            {
+                _temaColor = 0;
+            }
+        } else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            _temaColor--;
+            if (_temaColor < 0)
+            {
+                _temaColor = _todosLosColores.Length - 1;
+            }
+        }
+        GetColor(_todosLosColores[_temaColor]);
+    }
+    
 
 
     public void RevelarBombas()
@@ -66,6 +96,39 @@ public class Scripter : MonoBehaviour
                 thisBlock.GetComponent<Renderer>().material.color = bombColor;
             }
         }
+    }
+    
+    public void GetColor(string color)
+    {
+        
+        Color colorCorazon = new Color (0.0f, 0.0f, 0.0f, 0.7f);
+        Color colorLuzAdentro = new Color (1.0f, 1.0f, 1.0f);
+        Color colorLuzAfuera = new Color (1.0f, 1.0f, 1.0f);
+        
+        switch(color)
+        {
+            case "red":
+                colorCorazon = new Color(0.7f, 0.0f, 0.1f, 0.7f);
+                colorLuzAdentro = new Color(1.0f, 0.0f, 0.0f);
+                break;
+                
+            case "azul":
+                colorCorazon = new Color (0.1f, 0.3f, 0.6f, 0.7f);
+                colorLuzAdentro = new Color (0.0f, 0.0f, 1.0f);
+                break;
+            /*case "cian":
+                colorCorazon = new Color ();*/
+            /*case "verde":
+            case "rosa":
+            case "violeta":
+            case "naranja":
+            case "amarillo":
+            case "sin color":*/
+        }
+            
+        luzDeAdentro.GetComponent<Light>().color = colorLuzAdentro;
+        corazon.GetComponent<Renderer>().material.color = colorCorazon;
+        
     }
     
 
