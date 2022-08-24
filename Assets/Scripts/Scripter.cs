@@ -45,6 +45,20 @@ public class Scripter : MonoBehaviour
     }
 
 
+    public void RevelarBombas()
+    {
+        foreach (var item in blockMap.Keys)
+        {
+            GameObject thisBlock = blockMap[item];
+            if (thisBlock.GetComponent<BlockProperties>().isBomb)
+            {
+                Vector3 posicion = thisBlock.transform.position;
+                DeleteBlock(posicion);
+            }
+        }
+    }
+    
+
     // Instancia "bomba" o "nobomba" en *coordenadas* y dentro un *numero*
     public void SpawnBlock(bool isBomb, Vector3 coordenadas)
     {
@@ -141,7 +155,6 @@ public class Scripter : MonoBehaviour
         {
             thisBlock.GetComponent<Renderer>().material.color = Color.magenta;
             ActivateUIDead();
-            lost = true;
             return;
         }
         
