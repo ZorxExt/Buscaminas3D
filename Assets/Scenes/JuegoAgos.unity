@@ -171,6 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   darkBlockMaterial: {fileID: 2100000, guid: c5dd5d67bad8a1642a19af06626eca0a, type: 2}
   whiteBlockMaterial: {fileID: 2100000, guid: 7e1b135461c472345816109a9c4359ef, type: 2}
+  bloqueActual: {fileID: 0}
+  bloqueActualInvertido: {fileID: 0}
 --- !u!114 &80754113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1841,7 +1843,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: JuegoSaba
+          m_StringArgument: JuegoAgos
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1901482415

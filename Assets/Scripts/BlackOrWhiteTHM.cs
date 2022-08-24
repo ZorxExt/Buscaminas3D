@@ -7,11 +7,26 @@ public class BlackOrWhiteTHM : MonoBehaviour
     public Material darkBlockMaterial;
     public Material whiteBlockMaterial;
 
+    public Material bloqueActual;
+    public Material bloqueActualInvertido;
+    
     private GameObject _thisBlock;
     private bool _isBlack;
-
+    
     public void ChangeTheme()
     {
+        if (!_isBlack)
+        {
+            bloqueActual = whiteBlockMaterial;
+            bloqueActualInvertido = darkBlockMaterial;
+        }
+        
+        foreach (var item in Renderizado.renderizado.blockMap.Keys)
+        {
+            _thisBlock = Renderizado.renderizado.blockMap[item];
+            _thisBlock.GetComponent<MeshRenderer>().material = bloqueActual;
+        }
+        
 /*
 
         if (!_isBlack)
