@@ -158,6 +158,9 @@ MonoBehaviour:
   totalAmountNoBombs: 0
   deadUI: {fileID: 289159744}
   puntaje: 0
+  blockColor: {r: 0, g: 0, b: 0, a: 0}
+  flagColor: {r: 0, g: 0, b: 0, a: 0}
+  bombColor: {r: 0, g: 0, b: 0, a: 0}
   bomba: {fileID: 4159707100643489473, guid: 13c39db667865be4f962dddd2cb76013, type: 3}
   nobomba: {fileID: 8587532564906019682, guid: 3a926c79a1e8fac4791d4b9973fe816f, type: 3}
   pointer: {fileID: 2421464060420888196, guid: 6bc724216e997aa4ca7a1d5a83052c7f, type: 3}
@@ -453,7 +456,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 0.74509805, g: 0.3529412, b: 0, a: 1}
-  m_Intensity: 1
+  m_Intensity: 8
   m_Range: 8000
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -950,7 +953,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7feb448b112a8e045affc4ce290715de, type: 2}
+  - {fileID: 2100000, guid: 6db37a2adee9ea042bb9f4e60e0f5c80, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1240,7 +1243,7 @@ Light:
   m_Shape: 0
   m_Color: {r: 1, g: 0.5773492, b: 0, a: 1}
   m_Intensity: 10
-  m_Range: 7
+  m_Range: 30
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
