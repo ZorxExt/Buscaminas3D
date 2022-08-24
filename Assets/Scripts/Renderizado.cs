@@ -34,9 +34,10 @@ public class Renderizado : MonoBehaviour
     public int porcentajeBombas = 10;
     public bool lost = false;
     
-    //Colores (tanto en modo claro como en modo oscuro)
-    public Color flagColor = Color.gray;
-    public Color flagColorWrong = Color.red;
+    //Colores
+    public Color flagColor = Color.gray; //Tanto para el modo claro como para el modo oscuro
+    public Color flagColorWrong = Color.red; //Tanto para el modo claro como para el modo oscuro
+    public Color skyboxColorClaro = new Color (0.9f, 0.9f, 0.9f);
     
     //Materiales
     public Material bloqueActual;
@@ -87,9 +88,7 @@ public class Renderizado : MonoBehaviour
         
         StartCoroutine(gameObject.GetComponent<PointerMaster>().PointerDelete(coordenadas));
     }
-
     
-
     public void ClickDelete(Vector3 coordenadas)
     {
         DeleteBlock(coordenadas);

@@ -18,10 +18,11 @@ public class BlackOrWhiteTHM : MonoBehaviour
         {
             Renderizado.renderizado.bloqueActual = whiteBlockMaterial;
             Renderizado.renderizado.bloqueActualInvertido = darkBlockMaterial;
-
+            RenderSettings.skybox.SetColor("_Tint", Color.black);
         }
         else
         {
+            RenderSettings.skybox.SetColor("_Tint", Renderizado.renderizado.skyboxColorClaro);
             Renderizado.renderizado.bloqueActual = darkBlockMaterial;
             Renderizado.renderizado.bloqueActualInvertido = whiteBlockMaterial;
         }
