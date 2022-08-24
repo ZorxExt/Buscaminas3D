@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Juego.unity
     guid: 4217802a3dad6e548bb8c8d4fdb9f08c
+  - enabled: 1
+    path: Assets/Scenes/JuegoAquamarina.unity
+    guid: ded9630f6cc4fd74e965dc00827dff59
   m_configObjects: {}
