@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,9 +7,11 @@ public class CenterControl : MonoBehaviour
 {
     private float _verticalInput;
     private float _horizontalInput;
-
+    public Animator animator;
     public float cameraSpeed;
+
     
+
     private void Update()
     {
         _verticalInput = Input.GetAxis("Vertical");
@@ -23,6 +26,7 @@ public class CenterControl : MonoBehaviour
         if (Input.GetKey(KeyCode.Q))
         {
             gameObject.transform.Rotate(Time.deltaTime * cameraSpeed * Vector3.back);
+
         }
         if (Input.GetKey(KeyCode.E))
         {
