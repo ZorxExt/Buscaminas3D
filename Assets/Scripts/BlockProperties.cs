@@ -33,8 +33,13 @@ public class BlockProperties : MonoBehaviour
         
         if (Input.GetMouseButtonDown(0))
         {
-            Renderizado.renderizado.ClickDelete(position);
+            if (isFlagged)
+            {
+                return;
+            }
             
+            Renderizado.renderizado.ClickDelete(position);
+
             if (isBomb)
             {
                 Renderizado.renderizado.lost = true;
