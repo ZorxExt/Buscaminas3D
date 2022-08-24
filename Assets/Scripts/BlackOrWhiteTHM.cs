@@ -1,32 +1,51 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BlackOrWhiteTHM : MonoBehaviour
 {
-    public Material darkBlockMaterial;
-    public Material whiteBlockMaterial;
 
-    public Material bloqueActual;
-    public Material bloqueActualInvertido;
-    
     private GameObject _thisBlock;
-    private bool _isBlack;
+    private bool _isBlack = true;
     
     public void ChangeTheme()
     {
+        Material darkBlockMaterial = Renderizado.renderizado.darkBlockMaterial;
+        Material whiteBlockMaterial = Renderizado.renderizado.whiteBlockMaterial;
+
         if (!_isBlack)
         {
-            bloqueActual = whiteBlockMaterial;
-            bloqueActualInvertido = darkBlockMaterial;
+            Renderizado.renderizado.bloqueActual = whiteBlockMaterial;
+            Renderizado.renderizado.bloqueActualInvertido = darkBlockMaterial;
+
+        }
+        else
+        {
+            Renderizado.renderizado.bloqueActual = darkBlockMaterial;
+            Renderizado.renderizado.bloqueActualInvertido = whiteBlockMaterial;
         }
         
         foreach (var item in Renderizado.renderizado.blockMap.Keys)
         {
             _thisBlock = Renderizado.renderizado.blockMap[item];
-            _thisBlock.GetComponent<MeshRenderer>().material = bloqueActual;
+
+            if (_thisBlock.GetComponent<BlockProperties>().isFlagged)
+            {
+                continue;
+            }
+            if (_thisBlock.GetComponent<BlockProperties>().isBomb && _thisBlock.GetComponent<BlockProperties>().isRevealed)
+            {
+                _thisBlock.GetComponent<MeshRenderer>().material = Renderizado.renderizado.bloqueActualInvertido;
+            }
+            else
+            {
+                _thisBlock.GetComponent<MeshRenderer>().material = Renderizado.renderizado.bloqueActual;
+            }
         }
-        
+
+        _isBlack = !_isBlack;
+
 /*
 
         if (!_isBlack)

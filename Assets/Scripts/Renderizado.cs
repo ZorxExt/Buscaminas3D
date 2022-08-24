@@ -34,9 +34,15 @@ public class Renderizado : MonoBehaviour
     public int porcentajeBombas = 10;
     public bool lost = false;
     
+    //Colores (tanto en modo claro como en modo oscuro)
+    public Color flagColor = Color.gray;
+    public Color flagColorWrong = Color.red;
     
-    
-    
+    //Materiales
+    public Material bloqueActual;
+    public Material bloqueActualInvertido;
+    public Material darkBlockMaterial;
+    public Material whiteBlockMaterial;
     
     
     void Start()
@@ -133,16 +139,20 @@ public class Renderizado : MonoBehaviour
         foreach (var item in blockMap.Keys)
         {
             GameObject thisBlock = blockMap[item];
+
+            thisBlock.GetComponent<BlockProperties>().isRevealed = true;
             
             bool isBomb = thisBlock.GetComponent<BlockProperties>().isBomb;
             bool isFlagged = thisBlock.GetComponent<BlockProperties>().isFlagged;
             
             if (isBomb)
             {
-                //MOSTRAS TODAS LAS BOMBAS CUANDO PERDES !!!
-            } else if (isFlagged)
+                thisBlock.GetComponent<MeshRenderer>().material = bloqueActualInvertido;
+            }
+            else if (isFlagged)
             {
-                //MOSTRAS BANDERAS MAL COLOCADAS !!!
+                thisBlock.GetComponent<MeshRenderer>().material = whiteBlockMaterial;
+                thisBlock.GetComponent<MeshRenderer>().material.color = flagColorWrong;
             }
         }
     }
