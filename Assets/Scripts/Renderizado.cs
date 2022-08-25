@@ -21,8 +21,7 @@ public class Renderizado : MonoBehaviour
     public Dictionary<string, GameObject> blockMap = new Dictionary<string, GameObject>();
     
     //Prefaps
-    public GameObject bomba;
-    public GameObject nobomba;
+    public GameObject cubo;
     public GameObject pointer;
     
     //Contadores
@@ -61,15 +60,16 @@ public class Renderizado : MonoBehaviour
     public void SpawnBlock(bool isBomb, Vector3 coordenadas)
     {
         GameObject newBlock;
-        switch (isBomb)
+        
+        newBlock = Instantiate(cubo, coordenadas, Quaternion.identity);
+
+        if (!isBomb)
         {
-            case true:
-                newBlock = Instantiate(bomba, coordenadas, Quaternion.identity);
-                break;
-            case false:
-                newBlock = Instantiate(nobomba, coordenadas, Quaternion.identity);
-                totalAmountNoBombs++;
-                break;
+            totalAmountNoBombs++;
+        }
+        else
+        {
+            newBlock.GetComponent<BlockProperties>().isBomb = true;
         }
 
         // Diccionario con todos los bloques

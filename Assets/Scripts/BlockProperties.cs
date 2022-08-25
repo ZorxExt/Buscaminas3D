@@ -7,9 +7,9 @@ using UnityEngine;
 
 public class BlockProperties : MonoBehaviour
 {
-    public bool isBomb;
+    public bool isBomb = false;
     public bool isRevealed = false;
-    public bool isFlagged;
+    public bool isFlagged = false;
     public int number;
     public AudioClip deleteBlockSound;
     public AudioClip loseSound;
