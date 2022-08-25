@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
 using TMPro;
 using Unity.VisualScripting;
@@ -32,12 +33,22 @@ public class Renderizado : MonoBehaviour
     //Variables
     public int porcentajeBombas = 10;
     public bool lost = false;
+    public bool win = false;
     public bool temaOscuro = true;
 
 
     void Start()
     {
         renderizado = this;
+    }
+    
+    //Empezar una capa nueva (o la primera)
+    public void CapaNueva(int x1, int x2, int y1, int y2, int z1, int z2)
+    {
+        BorrarBlockMap();
+        CreateTable(x1, x2, y1, y2, z1, z2);
+        
+        puntaje++;
     }
 
     
@@ -60,6 +71,7 @@ public class Renderizado : MonoBehaviour
         int x = (int)coordenadas.x;
         int y = (int)coordenadas.y;
         int z = (int)coordenadas.z;
+        
         blockMap.Add($"{x},{y},{z}", newBlock);
     }
     
@@ -82,17 +94,29 @@ public class Renderizado : MonoBehaviour
         }
         
         StartCoroutine(gameObject.GetComponent<PointerMaster>().PointerDelete(coordenadas));
+
+        totalAmountNoBombs--;
+        
+        if (totalAmountNoBombs == 0)
+        {
+            win = true;
+        }
     }
     
     public void ClickDelete(Vector3 coordenadas)
     {
         DeleteBlock(coordenadas);
+        
         int i = (int)coordenadas.x;
         int j = (int)coordenadas.y;
         int k = (int)coordenadas.z;
+        
         string thisKey = $"{i},{j},{k}";
+        
         GameObject thisBlock = blockMap[thisKey];
+        
         thisBlock.GetComponent<BlockProperties>().isRevealed = true;
+        
         if (thisBlock.GetComponent<BlockProperties>().number == 0)
         {
             for (int x = -1; x <= 1; x++)
@@ -102,9 +126,11 @@ public class Renderizado : MonoBehaviour
                     for (int z = -1; z <= 1; z++)
                     {
                         string key = $"{x + i},{y + j},{z + k}";
+                        
                         if (blockMap.ContainsKey(key) && coordenadas != new Vector3(x+i,y+j,z+k))
                         {
                             GameObject bloqueAdyacente = blockMap[key];
+                            
                             if (bloqueAdyacente.GetComponent<BlockProperties>().number != -1
                                 && bloqueAdyacente.GetComponent<BlockProperties>().isRevealed == false)
                             {
@@ -115,11 +141,6 @@ public class Renderizado : MonoBehaviour
                     }
                 }
             }
-        }
-
-        if (totalAmountNoBombs == 0)
-        {
-            BorrarBlockMap();
         }
     }
 
@@ -135,17 +156,16 @@ public class Renderizado : MonoBehaviour
             GameObject thisBlock = blockMap[item];
 
             thisBlock.GetComponent<BlockProperties>().isRevealed = true;
-
         }
     }
-
-
+    
     public void BorrarBlockMap()
     {
         foreach (var item in blockMap.Keys)
         {
             Destroy(blockMap[item]);
         }
+        
         blockMap.Clear();
         puntaje++;
         

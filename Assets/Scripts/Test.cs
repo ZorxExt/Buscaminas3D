@@ -22,12 +22,17 @@ public class Test : MonoBehaviour
     
     private void Start()
     {
-        Renderizado.renderizado.CreateTable(-5, 4, -5, 4, -5, 4);
+        Renderizado.renderizado.CapaNueva(-5, 4, -5, 4, -5, 4);
     }
 
     private void Update()
     {
         UpdatearColores();
+
+        if (Renderizado.renderizado.win)
+        {
+            Renderizado.renderizado.RevelarBombas();
+        }
     }
 
     private void UpdatearColores()
@@ -38,25 +43,55 @@ public class Test : MonoBehaviour
         foreach (var item in blockMap.Keys)
         {
             GameObject thisBlock = blockMap[item];
+            bool isFlagged = thisBlock.GetComponent<BlockProperties>().isFlagged;
+            bool isBomb = thisBlock.GetComponent<BlockProperties>().isBomb;
+            bool isRevealed = thisBlock.GetComponent<BlockProperties>().isRevealed;
+            bool lost = Renderizado.renderizado.lost;
+            bool win = Renderizado.renderizado.win;
             
+            
+            //PLAYING
             thisBlock.GetComponent<MeshRenderer>().material = bloqueActual;
 
-            if (thisBlock.GetComponent<BlockProperties>().isBomb &&
-                thisBlock.GetComponent<BlockProperties>().isRevealed)
-            {
-                thisBlock.GetComponent<MeshRenderer>().material = bloqueActualInvertido;
-            }
-
-            if (thisBlock.GetComponent<BlockProperties>().isFlagged)
+            if (isFlagged)
             {
                 thisBlock.GetComponent<MeshRenderer>().material = whiteBlockMaterial;
                 thisBlock.GetComponent<MeshRenderer>().material.color = flagColor;
             }
 
-            if (thisBlock.GetComponent<BlockProperties>().isFlagged &&
-                !thisBlock.GetComponent<BlockProperties>().isBomb && Renderizado.renderizado.lost)
+            //LOST
+            if (lost)
             {
-                thisBlock.GetComponent<MeshRenderer>().material.color = flagColorWrong;
+                if (isFlagged && !isBomb)
+                {
+                    thisBlock.GetComponent<MeshRenderer>().material.color = flagColorWrong;
+                }
+
+                if (isBomb)
+                {
+                    thisBlock.GetComponent<MeshRenderer>().material = bloqueActualInvertido;
+                }
+            }
+            
+            /*
+            WIN
+             
+            (igual esto es temporal porque no se gana, sino que hace una capa nueva, pero está bueno
+            tener esto a mano para cuando queramos animar la aparición de la capa nueva)
+            
+            Lo que hace ahora mismo esta parte del script es mostrar todas las bombas una vez no te quedan más,
+            así hace el buscaminas real
+            
+            Nosotros podemos hacer que cuando ganás, en esa capa, muestra todas las bombas, hace una
+            animación godita y luego hace una capa nueva con la función Renderizado.renderizado.CapaNueva
+            */
+            
+            if (win)
+            {
+                if (isFlagged || isBomb)
+                {
+                    thisBlock.GetComponent<MeshRenderer>().material = bloqueActualInvertido;
+                }
             }
         }
 
