@@ -31,8 +31,8 @@ public class Renderizado : MonoBehaviour
     
     //Variables
     public int porcentajeBombas = 10;
-    public bool lost = false;
-    public bool win = false;
+    public bool lost;
+    public bool win;
     public bool temaOscuro = true;
 
 
@@ -52,6 +52,10 @@ public class Renderizado : MonoBehaviour
 
     public void PrimeraCapa()
     {
+        //Reset de variables relevntes cuando empezás un juego
+        lost = false;
+        win = false;
+        
         CapaNueva(-5, 4, -5, 4, -5, 4);
     }
 
@@ -345,10 +349,6 @@ public class Renderizado : MonoBehaviour
 
     public void CreateTable(int x1, int x2, int y1, int y2, int z1, int z2)
     {
-        totalAmountBombs = 0;
-        lost = false;
-        win = false;
-        
         int width = Math.Abs(x1 - x2) + 1;
         int height = Math.Abs(y1 - y2) + 1;
         int depth = Math.Abs(z1 - z2) + 1;
