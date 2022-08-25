@@ -51,6 +51,11 @@ public class Renderizado : MonoBehaviour
         puntaje++;
     }
 
+    public void PrimeraCapa()
+    {
+        CapaNueva(-5, 4, -5, 4, -5, 4);
+    }
+
     
     // Spawn block in "coordenadas"
     public void SpawnBlock(bool isBomb, Vector3 coordenadas)
@@ -167,8 +172,6 @@ public class Renderizado : MonoBehaviour
         }
         
         blockMap.Clear();
-        puntaje++;
-        
     }
 
 
@@ -344,6 +347,7 @@ public class Renderizado : MonoBehaviour
     {
         totalAmountBombs = 0;
         lost = false;
+        win = false;
         
         int width = Math.Abs(x1 - x2) + 1;
         int height = Math.Abs(y1 - y2) + 1;

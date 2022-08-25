@@ -13,16 +13,15 @@ public class Test : MonoBehaviour
     public Material whiteBlockMaterial;
     
     //Colores
-    public Color flagColor = Color.gray; //Tanto para el modo claro como para el modo oscuro
-    public Color flagColorWrong = Color.red; //Tanto para el modo claro como para el modo oscuro
     public Color skyboxColorClaro = new Color (0.9f, 0.9f, 0.9f);
     public Color skyboxColorOscuro = Color.black;
+    public Color bombaExplotada = Color.red;
 
     // Start is called before the first frame update
     
     private void Start()
     {
-        Renderizado.renderizado.CapaNueva(-5, 4, -5, 4, -5, 4);
+        Renderizado.renderizado.PrimeraCapa();
     }
 
     private void Update()
@@ -38,6 +37,7 @@ public class Test : MonoBehaviour
     private void UpdatearColores()
     {
         bool temaOscuro = Renderizado.renderizado.temaOscuro;
+
         Dictionary<string, GameObject> blockMap = Renderizado.renderizado.blockMap;
 
         foreach (var item in blockMap.Keys)
@@ -45,7 +45,6 @@ public class Test : MonoBehaviour
             GameObject thisBlock = blockMap[item];
             bool isFlagged = thisBlock.GetComponent<BlockProperties>().isFlagged;
             bool isBomb = thisBlock.GetComponent<BlockProperties>().isBomb;
-            bool isRevealed = thisBlock.GetComponent<BlockProperties>().isRevealed;
             bool lost = Renderizado.renderizado.lost;
             bool win = Renderizado.renderizado.win;
             
@@ -55,21 +54,16 @@ public class Test : MonoBehaviour
 
             if (isFlagged)
             {
-                thisBlock.GetComponent<MeshRenderer>().material = whiteBlockMaterial;
-                thisBlock.GetComponent<MeshRenderer>().material.color = flagColor;
+                thisBlock.GetComponent<MeshRenderer>().material = bloqueActualInvertido;
             }
 
             //LOST
             if (lost)
             {
-                if (isFlagged && !isBomb)
-                {
-                    thisBlock.GetComponent<MeshRenderer>().material.color = flagColorWrong;
-                }
-
                 if (isBomb)
                 {
-                    thisBlock.GetComponent<MeshRenderer>().material = bloqueActualInvertido;
+                    thisBlock.GetComponent<MeshRenderer>().material = whiteBlockMaterial;
+                    thisBlock.GetComponent<MeshRenderer>().material.color = bombaExplotada;
                 }
             }
             
