@@ -23,7 +23,7 @@ public class Renderizado : MonoBehaviour
     //Prefaps
     public GameObject cubo;
     public GameObject pointer;
-    
+
     //Contadores
     public int totalAmountNoBombs;
     public int totalAmountBombs;

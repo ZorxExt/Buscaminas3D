@@ -17,7 +17,9 @@ public class Test : MonoBehaviour
     public Color skyboxColorOscuro = Color.black;
     public Color bombaExplotada = Color.red;
 
-    // Start is called before the first frame update
+    //Dependencias
+
+    public UIManager uiManager;
     
     private void Start()
     {
@@ -27,6 +29,8 @@ public class Test : MonoBehaviour
     private void Update()
     {
         UpdatearColores();
+        uiManager.MostrarUIWin(Renderizado.renderizado.win);
+        uiManager.MostrarUILost(Renderizado.renderizado.lost);
 
         if (Renderizado.renderizado.win)
         {
@@ -65,6 +69,7 @@ public class Test : MonoBehaviour
                     thisBlock.GetComponent<MeshRenderer>().material = whiteBlockMaterial;
                     thisBlock.GetComponent<MeshRenderer>().material.color = bombaExplotada;
                 }
+
             }
             
             /*

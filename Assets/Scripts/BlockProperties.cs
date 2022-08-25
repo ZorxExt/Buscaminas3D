@@ -24,7 +24,7 @@ public class BlockProperties : MonoBehaviour
     
     private void OnMouseOver()
     {
-        if (Renderizado.renderizado.lost)
+        if (Renderizado.renderizado.lost || Renderizado.renderizado.win )
         {
             return;
         }
