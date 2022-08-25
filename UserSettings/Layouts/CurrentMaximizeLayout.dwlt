@@ -224,9 +224,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: d8590000
-      m_LastClickedID: 23000
-      m_ExpandedIDs: 36fbffff465a0000645a0000
+      m_SelectedIDs: 18d60000
+      m_LastClickedID: 0
+      m_ExpandedIDs: 7669f5ff926af5ff36f9f5ff4830f6fffc88f6ff36fbffff465a0000645a00000ed60000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -651,21 +651,21 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Textures
+    - Assets/Scripts
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Textures
+  - Assets/Scripts
   m_LastFoldersGridSize: -1
   m_LastProjectPath: E:\unity_projects\GITHUB\Buscaminas3D
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 365b0000
-    m_LastClickedID: 23350
+    m_SelectedIDs: 305b0000
+    m_LastClickedID: 23344
     m_ExpandedIDs: 00000000185b00001a5b00001c5b00001e5b0000205b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -694,7 +694,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000185b00001a5b00001c5b00001e5b0000205b0000
+    m_ExpandedIDs: 00000000185b00001a5b00001c5b00001e5b0000205b000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -719,8 +719,8 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: d8590000
-    m_LastClickedInstanceID: 23000
+    m_SelectedInstanceIDs: 18d60000
+    m_LastClickedInstanceID: 54808
     m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
@@ -780,7 +780,7 @@ MonoBehaviour:
     m_SaveData: []
   m_LockTracker:
     m_IsLocked: 0
-  m_LastSelectedObjectID: 38166
+  m_LastSelectedObjectID: -15424
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
