@@ -21,7 +21,12 @@ public class BgSound : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
     }
-    
+
+    private void Start()
+    {
+        audioControl.SetFloat("MusicVol", MathF.Log10(0.5f) * 20);
+    }
+
     public void VolumenSlider(float sliderValue)
     {
         audioControl.SetFloat("MusicVol", MathF.Log10(sliderValue) * 20);

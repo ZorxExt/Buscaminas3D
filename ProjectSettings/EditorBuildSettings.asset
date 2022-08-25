@@ -8,13 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 7cfb9331ff5ee1843b83311d8dffa0b6
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/JuegoAquamarina.unity
-    guid: ded9630f6cc4fd74e965dc00827dff59
+    path: Assets/Scenes/Juego.unity
+    guid: 41863febe76f0894ca059f9a2e227c8b
   m_configObjects: {}

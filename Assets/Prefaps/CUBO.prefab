@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1293346879750857019}
   - component: {fileID: -4226783312791931463}
   m_Layer: 0
-  m_Name: Cubo
+  m_Name: CUBO
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131,7 +131,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 0.9
   Loop: 0
   Mute: 0
   Spatialize: 0

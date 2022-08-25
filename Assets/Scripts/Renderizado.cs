@@ -99,6 +99,7 @@ public class Renderizado : MonoBehaviour
         else if (thisBlock.GetComponent<BlockProperties>().isBomb)
         {
             lost = true;
+            puntaje = 0;
             return;
         }
         
