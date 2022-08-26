@@ -8,6 +8,10 @@ public class UIManager : MonoBehaviour
 {
     public GameObject lostUI;
     public GameObject winUI;
+    public RawImage temaButton;
+
+    public Texture2D darkThemeButton;
+    public Texture2D whiteThemeButton;
 
     public void MostrarUILost(bool switcher)
     {
@@ -29,12 +33,16 @@ public class UIManager : MonoBehaviour
             lostUI.transform.Find("RestartButton").GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f);
             lostUI.transform.Find("RestartButton/RestartText").GetComponent<TextMeshProUGUI>().color = Color.black;
 
+            temaButton.texture = darkThemeButton;
+
         }
         else
         {
             lostUI.GetComponent<TextMeshProUGUI>().color = Color.black;
             lostUI.transform.Find("RestartButton").GetComponent<Image>().color = new Color(0.2f, 0.2f, 0.2f);
             lostUI.transform.Find("RestartButton/RestartText").GetComponent<TextMeshProUGUI>().color = Color.gray;
+
+            temaButton.texture = whiteThemeButton;
         }
     }
     
