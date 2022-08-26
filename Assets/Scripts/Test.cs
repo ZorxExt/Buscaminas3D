@@ -98,14 +98,14 @@ public class Test : MonoBehaviour
         {
             bloqueActual = whiteBlockMaterial;
             bloqueActualInvertido = darkBlockMaterial;
-            RenderSettings.skybox.SetColor("_Tint", skyboxColorOscuro);
+
             uiManager.ActivarDarkMode(true);
         }
         else
         {
             bloqueActual = darkBlockMaterial;
             bloqueActualInvertido = whiteBlockMaterial;
-            RenderSettings.skybox.SetColor("_Tint", skyboxColorClaro);
+
             uiManager.ActivarDarkMode(false);
         }
     }

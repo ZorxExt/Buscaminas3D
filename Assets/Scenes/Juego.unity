@@ -250,8 +250,7 @@ MonoBehaviour:
   luzAfuera: {fileID: 705507993}
   corazon: {fileID: 971419478}
   index: 0
-  skinsNames: 010000000100000001000000
-  newSkin: 1
+  skinsNames: 000000000200000001000000
   skinActual: 0
 --- !u!1 &148477791
 GameObject:
@@ -571,7 +570,7 @@ MonoBehaviour:
   bloqueActualInvertido: {fileID: 2100000, guid: 8a1633785bb883d4d9eef70d2e181ee0, type: 2}
   darkBlockMaterial: {fileID: 2100000, guid: 8a1633785bb883d4d9eef70d2e181ee0, type: 2}
   whiteBlockMaterial: {fileID: 2100000, guid: a1aabe48a6fb8664abd3d1e0f6865ab2, type: 2}
-  skyboxColorClaro: {r: 0.5754717, g: 0.5754717, b: 0.5754717, a: 1}
+  skyboxColorClaro: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
   skyboxColorOscuro: {r: 0, g: 0, b: 0, a: 1}
   bombaExplotada: {r: 0.6132076, g: 0.21115166, b: 0.21115166, a: 1}
   uiManager: {fileID: 80754115}

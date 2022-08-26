@@ -27,21 +27,18 @@ public class UIManager : MonoBehaviour
 
     public void ActivarDarkMode(bool switcher)
     {
+        lostUI.GetComponent<TextMeshProUGUI>().color = Color.gray;
         if (switcher)
         {
-            lostUI.GetComponent<TextMeshProUGUI>().color = Color.gray;
             lostUI.transform.Find("RestartButton").GetComponent<Image>().color = new Color(0.8f, 0.8f, 0.8f);
             lostUI.transform.Find("RestartButton/RestartText").GetComponent<TextMeshProUGUI>().color = Color.black;
-
             temaButton.texture = darkThemeButton;
 
         }
         else
         {
-            lostUI.GetComponent<TextMeshProUGUI>().color = Color.black;
             lostUI.transform.Find("RestartButton").GetComponent<Image>().color = new Color(0.2f, 0.2f, 0.2f);
             lostUI.transform.Find("RestartButton/RestartText").GetComponent<TextMeshProUGUI>().color = Color.gray;
-
             temaButton.texture = whiteThemeButton;
         }
     }
