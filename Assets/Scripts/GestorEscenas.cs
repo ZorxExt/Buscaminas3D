@@ -6,6 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class GestorEscenas : MonoBehaviour
 {
+
+
+    public static string siguienteEscena;
+     
     private void Start()
     {
         RenderSettings.skybox.SetColor("_Tint", Color.black);
@@ -13,19 +17,11 @@ public class GestorEscenas : MonoBehaviour
 
     public void CambiarEscena(string escena)
     {
-        if (escena == "salir")
-        {
-            Application.Quit();
-        }
-        else if (escena == "Juego")
-        {
-            SceneManager.LoadScene(escena);
-        }
-        else
-        {
-            SceneManager.LoadScene(escena);
-            Renderizado.renderizado.BorrarBlockMap();
-        }
+        siguienteEscena = escena;
+        
+
+        SceneManager.LoadScene("PantallaDeCarga");
+
     }
 }
 
