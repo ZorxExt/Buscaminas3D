@@ -1,16 +1,7 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Security.Cryptography.X509Certificates;
 using UnityEngine;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.IMGUI.Controls;
-using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
 public class Renderizado : MonoBehaviour
 {

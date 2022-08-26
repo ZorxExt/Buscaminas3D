@@ -1300,6 +1300,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Volumen
       objectReference: {fileID: 0}
+    - target: {fileID: 5235511529837321662, guid: db5b0dde71cf496488b68c620da87417, type: 3}
+      propertyPath: m_Navigation.m_Mode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5235511529837321663, guid: db5b0dde71cf496488b68c620da87417, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
