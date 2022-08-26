@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 
-public class BgSound : MonoBehaviour
+public class SonidoGeneral : MonoBehaviour
 {
-    private static BgSound instance = null;
-    public AudioMixer audioControl;
+    private static SonidoGeneral instance = null;
+    public AudioMixer audioMix;
+    public float sonidoGeneral;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -22,15 +22,8 @@ public class BgSound : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
-    private void Start()
+    private void Update()
     {
-        audioControl.SetFloat("MusicVol", MathF.Log10(0.5f) * 20);
+        audioMix.GetFloat("MusicVol",out sonidoGeneral);
     }
-
-    public void VolumenSlider(float sliderValue)
-    {
-        audioControl.SetFloat("MusicVol", MathF.Log10(sliderValue) * 20);
-    }
-    
-    
 }

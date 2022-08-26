@@ -17,6 +17,10 @@ public class GestorEscenas : MonoBehaviour
         {
             Application.Quit();
         }
+        else if (escena == "Juego")
+        {
+            SceneManager.LoadScene(escena);
+        }
         else
         {
             SceneManager.LoadScene(escena);
