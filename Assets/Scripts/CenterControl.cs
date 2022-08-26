@@ -10,8 +10,10 @@ public class CenterControl : MonoBehaviour
     public Animator animator;
     public float cameraSpeed;
 
+    public void Start()
+    {
+    }
     
-
     private void Update()
     {
         _verticalInput = Input.GetAxis("Vertical");

@@ -180,66 +180,18 @@ public class Renderizado : MonoBehaviour
     }
 
 
-/* COLORES!
-
-
-        if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            _temaColor++;
-            if (_temaColor == _todosLosColores.Length)
-            {
-                _temaColor = 0;
-            }
-        } else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            _temaColor--;
-            if (_temaColor < 0)
-            {
-                _temaColor = _todosLosColores.Length - 1;
-            }
-        }
-        GetColor(_todosLosColores[_temaColor]);
-        
-        
-            public void GetColor(string color)
-    {
-        
-        Color colorCorazon = new Color (0.0f, 0.0f, 0.0f, 0.7f);
-        Color colorLuzAdentro = new Color (1.0f, 1.0f, 1.0f);
-        Color colorLuzAfuera = new Color (1.0f, 1.0f, 1.0f);
-        
-        switch(color)
-        {
-            case "red":
-                colorCorazon = new Color(0.7f, 0.0f, 0.1f, 0.7f);
-                colorLuzAdentro = new Color(1.0f, 0.0f, 0.0f);
-                break;
-                
-            case "azul":
-                colorCorazon = new Color (0.1f, 0.3f, 0.6f, 0.7f);
-                colorLuzAdentro = new Color (0.0f, 0.0f, 1.0f);
-                break;
-
-        }
-            
-        luzDeAdentro.GetComponent<Light>().color = colorLuzAdentro;
-        corazon.GetComponent<Renderer>().material.color = colorCorazon;
-        
-    }
     
     
-*/
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     // Logica y creacion tablero
     
     
