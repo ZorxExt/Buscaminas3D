@@ -5,6 +5,11 @@ using System;
 
 public class Skins : MonoBehaviour
 {
+    public GameObject luzAdentro;
+    public GameObject luzAfuera;
+    public GameObject corazon;
+    
+    
     public enum Skin
     {
         Azul,
@@ -31,7 +36,7 @@ public class Skins : MonoBehaviour
         //Poner la skin (en caso de que haya una)
         if (newSkin)
         {
-            SetSkin();
+            SetSkin(skinActual);
             newSkin = false;
         }
         
@@ -89,29 +94,29 @@ public class Skins : MonoBehaviour
         }
         newSkin = true;
     }
-    public void SetSkin()
+    
+    public void SetSkin(Skin skin)
     {
-        /*Color colorCorazon = new Color (0.0f, 0.0f, 0.0f, 0.7f);
-        Color colorLuzAdentro = new Color (1.0f, 1.0f, 1.0f);
-        Color colorLuzAfuera = new Color (1.0f, 1.0f, 1.0f);/*
-            
-        /*switch(color)
-        {
-            case "red":
-                colorCorazon = new Color(0.7f, 0.0f, 0.1f, 0.7f);
-                colorLuzAdentro = new Color(1.0f, 0.0f, 0.0f);
-                break;
-                    
-            case "azul":
-                colorCorazon = new Color (0.1f, 0.3f, 0.6f, 0.7f);
-                colorLuzAdentro = new Color (0.0f, 0.0f, 1.0f);
-                break;
+        //Color por default
+        Color colorCorazon = new Color (0.0f, 0.0f, 0.0f, 0.7f); //Negro transparentito
+        Color colorLuzAdentro = Color.white;
+        Color colorLuzAfuera = Color.white;
+        
 
-        }
-                
-        luzDeAdentro.GetComponent<Light>().color = colorLuzAdentro;
-        corazon.GetComponent<Renderer>().material.color = colorCorazon;*/
+        switch (skin)
+        {
+            case Skin.Azul:
+                break;
             
+            case Skin.Rojo:
+                break;
+            
+            case Skin.Naranja:
+                break;
+        }
+        
+        luzAdentro.GetComponent<Light>().color = colorLuzAdentro;
+        corazon.GetComponent<Renderer>().material.color = colorCorazon;
     }
 
 }
