@@ -1,17 +1,50 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Slider = UnityEngine.UIElements.Slider;
 
 public class UIManager : MonoBehaviour
 {
     public GameObject lostUI;
     public GameObject winUI;
     public RawImage temaButton;
+    public TextMeshProUGUI scoreText;
+    public int puntaje;
+    public Animator menuAnimator;
 
     public Texture2D darkThemeButton;
     public Texture2D whiteThemeButton;
+
+
+    public static UIManager uiManager;
+
+    private void Start()
+    {
+        uiManager = this;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            menuAnimator.SetTrigger("AbrirCerrar");
+        }
+    }
+
+
+    public void SumarPuntos(int puntos)
+    {
+        puntaje = puntaje + puntos;
+    }
+
+    public void ResetPuntos()
+    {
+        puntaje = 0;
+    }
+    
 
     public void MostrarUILost(bool switcher)
     {
@@ -21,7 +54,7 @@ public class UIManager : MonoBehaviour
     
     public void MostrarUIWin(bool switcher)
     {
-        
+        scoreText.text = ""+puntaje;
         winUI.SetActive(switcher);
     }
 
@@ -42,6 +75,7 @@ public class UIManager : MonoBehaviour
             temaButton.texture = whiteThemeButton;
         }
     }
+    
     
     
 }

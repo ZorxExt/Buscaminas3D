@@ -18,7 +18,7 @@ public class Cargando : MonoBehaviour
     
     IEnumerator CargarEscena(string escena)
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         
         AsyncOperation operation = SceneManager.LoadSceneAsync(escena);
 

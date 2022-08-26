@@ -17,8 +17,13 @@ public class GestorEscenas : MonoBehaviour
 
     public void CambiarEscena(string escena)
     {
-        siguienteEscena = escena;
+
+        if (escena == "Salir")
+        {
+            Application.Quit();
+        }
         
+        siguienteEscena = escena;
 
         SceneManager.LoadScene("PantallaDeCarga");
 

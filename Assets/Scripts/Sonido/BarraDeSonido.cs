@@ -17,13 +17,11 @@ public class BarraDeSonido : MonoBehaviour
 
         gameObject.GetComponent<Slider>().value = Mathf.Pow(10,_volumenInicial/20);
     }
-
-    
-    
     
 
     public void VolumenSlider(float sliderValue)
     {
         AudioMix.SetFloat("MusicVol", MathF.Log10(sliderValue) * 20);
     }
+    
 }

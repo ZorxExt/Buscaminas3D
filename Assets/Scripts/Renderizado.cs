@@ -27,8 +27,7 @@ public class Renderizado : MonoBehaviour
     //Contadores
     public int totalAmountNoBombs;
     public int totalAmountBombs;
-    public int puntaje;
-    
+
     //Variables
     public int porcentajeBombas = 10;
     public bool lost;
@@ -46,8 +45,6 @@ public class Renderizado : MonoBehaviour
     {
         BorrarBlockMap();
         CreateTable(x1, x2, y1, y2, z1, z2);
-        
-        puntaje++;
     }
 
     public void PrimeraCapa()
@@ -99,7 +96,7 @@ public class Renderizado : MonoBehaviour
         else if (thisBlock.GetComponent<BlockProperties>().isBomb)
         {
             lost = true;
-            puntaje = 0;
+            UIManager.uiManager.ResetPuntos();
             return;
         }
         
@@ -107,9 +104,10 @@ public class Renderizado : MonoBehaviour
 
         totalAmountNoBombs--;
         
-        if (totalAmountNoBombs == 0)
+        if (totalAmountNoBombs <= 0)
         {
             win = true;
+            UIManager.uiManager.SumarPuntos(1);
         }
     }
     
