@@ -14,7 +14,7 @@ public class Skins : MonoBehaviour
     {
         Azul,
         Rojo,
-        Naranja
+        Green
     }
 
     public int index = 0;
@@ -106,15 +106,25 @@ public class Skins : MonoBehaviour
         switch (skin)
         {
             case Skin.Azul:
+                colorCorazon = Color.blue;
+                colorLuzAdentro = Color.blue;
+                colorLuzAfuera = Color.blue;
                 break;
             
             case Skin.Rojo:
+                colorCorazon = Color.red;
+                colorLuzAdentro = Color.red;
+                colorLuzAfuera = Color.red;
                 break;
             
-            case Skin.Naranja:
+            case Skin.Green:
+                colorCorazon = Color.green;
+                colorLuzAdentro = Color.green;
+                colorLuzAfuera = Color.green;
                 break;
         }
-        
+
+        luzAfuera.GetComponent<Light>().color = colorLuzAfuera;
         luzAdentro.GetComponent<Light>().color = colorLuzAdentro;
         corazon.GetComponent<Renderer>().material.color = colorCorazon;
     }
