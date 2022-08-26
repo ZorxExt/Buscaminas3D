@@ -106,15 +106,15 @@ public class Skins : MonoBehaviour
         switch (skin)
         {
             case Skin.Azul:
-                colorCorazon = Color.blue;
-                colorLuzAdentro = Color.blue;
-                colorLuzAfuera = Color.blue;
+                colorCorazon = new Color(0.1368f,0.4284f,0.7075f,0.6823f);
+                colorLuzAdentro = new Color(0f,0.7176f,0.7176f,1f);
+                colorLuzAfuera = new Color(0.2470f, 0.2039f, 0.7921f);
                 break;
             
             case Skin.Rojo:
-                colorCorazon = Color.red;
-                colorLuzAdentro = Color.red;
-                colorLuzAfuera = Color.red;
+                colorCorazon = new Color(0.3962f, 0f, 0f, 0.3764f);
+                colorLuzAdentro = new Color(0.9921f, 0f, 0.1568f);
+                colorLuzAfuera = new Color(0.2470f, 0.2039f, 0.7921f);
                 break;
             
             case Skin.Green:
