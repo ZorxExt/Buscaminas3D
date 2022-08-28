@@ -153,7 +153,7 @@ public class Renderizado : MonoBehaviour
         foreach (var item in blockMap.Keys)
         {
             GameObject thisBlock = blockMap[item];
-
+            
             thisBlock.GetComponent<BlockProperties>().isRevealed = true;
         }
     }
@@ -248,7 +248,7 @@ public class Renderizado : MonoBehaviour
     }
 
 
-    public int CalcularNumero(int i, int j, int k, int ejex, int ejey, int ejez) //int ejex, int ejey, int ejez
+    public int CalcularNumero(int i, int j, int k, int ejex, int ejey, int ejez, bool bloqueAdyacenteAEsquina)
     {
         string thisKey = $"{i},{j},{k}";
         GameObject thisBlock = blockMap[thisKey];
@@ -267,6 +267,11 @@ public class Renderizado : MonoBehaviour
                 for (int z = -1 * ejez; z <= ejez; z++)
                 {
 
+                    if (bloqueAdyacenteAEsquina && (Math.Abs(x) + Math.Abs(y) + Math.Abs(z)) == 3)
+                    {
+                        continue;
+                    }
+                    
                     int thisX = (x + i);
                     int thisY = (y + j);
                     int thisZ = (z + k);
@@ -449,6 +454,8 @@ public class Renderizado : MonoBehaviour
         
         //PAREDES GRANDES
         
+        //Cara 1
+        
         for (int j = y1; j < (y2 + 1) ; j++)
         {
             for (int i = x1; i < (x2 + 1); i++)
@@ -460,18 +467,29 @@ public class Renderizado : MonoBehaviour
                 int ejex = 1;
                 int ejey = 1;
                 int ejez = 0;
+                
+                bool bloqueAdyacenteAEsquina = false;
 
                 if (i == x1 || i == x2 || j == y1 || j == y2)
                 {
                     ejez = 1;
                 }
+                
+                if (i == x1 && j == y1 + 1 || i == x1 && j == y2 - 1 ||
+                    i == x2 && j == y1 + 1 || i == x2 && j == y2 - 1 ||
+                    j == y1 && i == x1 + 1 || j == y1 && i == x2 - 1 ||
+                    j == y2 && i == x1 + 1 || j == y2 && i == x2 - 1)
+                {
+                    bloqueAdyacenteAEsquina = true;
+                }
 
-                int numero = CalcularNumero(i, j, z2, ejex, ejey, ejez);
+                int numero = CalcularNumero(i, j, z2, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
-       
+        
+        //Cara 2
         for (int j = y1; j < (y2 + 1); j++)
         {
             for (int i = x1; i < (x2 + 1); i++)
@@ -482,19 +500,30 @@ public class Renderizado : MonoBehaviour
                 int ejex = 1;
                 int ejey = 1;
                 int ejez = 0;
-
+                
+                bool bloqueAdyacenteAEsquina = false;
+                
                 if (i == x1 || i == x2 || j == y1 || j == y2)
                 {
                     ejez = 1;
                 }
+
+                if (i == x1 && j == y1 + 1 || i == x1 && j == y2 - 1 ||
+                    i == x2 && j == y1 + 1 || i == x2 && j == y2 - 1 ||
+                    j == y1 && i == x1 + 1 || j == y1 && i == x2 - 1 ||
+                    j == y2 && i == x1 + 1 || j == y2 && i == x2 - 1)
+                {
+                    bloqueAdyacenteAEsquina = true;
+                }
                 
-                int numero = CalcularNumero(i, j, z1, ejex, ejey, ejez);
+                int numero = CalcularNumero(i, j, z1, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
         
         //PAREDES CHICAS
         
+        //Cara 3
         for (int j = y1; j < (y2+1); j++)
         {
             
@@ -507,19 +536,29 @@ public class Renderizado : MonoBehaviour
                 int ejex = 0;
                 int ejey = 1;
                 int ejez = 1;
+                
+                bool bloqueAdyacenteAEsquina = false;
 
                 if (j == y1 || j == y2 || k == z1 || k == z2)
                 {
                     ejex = 1;
                 }
+
+                if (k == z1 && j == y1 + 1 || k == z1 && j == y2 - 1 ||
+                    k == z2 && j == y1 + 1 || k == z2 && j == y2 - 1 ||
+                    j == y1 && k == z1 + 1 || j == y1 && k == z2 - 1 ||
+                    j == y2 && k == z1 + 1 || j == y2 && k == z2 - 1)
+                {
+                    bloqueAdyacenteAEsquina = true;
+                }
                 
-                int numero = CalcularNumero(x1, j, k, ejex, ejey, ejez);
+                int numero = CalcularNumero(x1, j, k, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
                 bloque.GetComponent<BlockProperties>().number = numero;
 
             }
         }
         
-
+        //Cara 4
         for (int j = y1; j < y2+1; j++)
         {
             for (int k = z1+1; k < z2; k++)
@@ -532,18 +571,31 @@ public class Renderizado : MonoBehaviour
                 int ejex = 0;
                 int ejey = 1;
                 int ejez = 1;
+                
+                bool bloqueAdyacenteAEsquina = false;
 
                 if (j == y1 || j == y2 || k == z1 || k == z2)
                 {
                     ejex = 1;
                 }
+
+                if (k == z1 && j == y1 + 1 || k == z1 && j == y2 - 1 ||
+                    k == z2 && j == y1 + 1 || k == z2 && j == y2 - 1 ||
+                    j == y1 && k == z1 + 1 || j == y1 && k == z2 - 1 ||
+                    j == y2 && k == z1 + 1 || j == y2 && k == z2 - 1)
+                {
+                    bloqueAdyacenteAEsquina = true;
+                }
                 
-                int numero = CalcularNumero(x2, j, k, ejex, ejey, ejez);
+                int numero = CalcularNumero(x2, j, k, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
+        
         //TAPAS
+        
+        //Cara 5
         
         for (int k = z1+1; k < z2; k++)
         {
@@ -555,20 +607,30 @@ public class Renderizado : MonoBehaviour
                 int ejex = 1;
                 int ejey = 0;
                 int ejez = 1;
+                
+                bool bloqueAdyacenteAEsquina = false;
 
                 if (i == x1 || i == x2 || k == z1 || k == z2)
                 {
                     ejey = 1;
                 }
+
+                if (i == x1 && k == z1 + 1 || i == x1 && k == z2 - 1 ||
+                    i == x2 && k == z1 + 1 || i == x2 && k == z2 - 1 ||
+                    k == z1 && i == x1 + 1 || k == z1 && i == x2 - 1 ||
+                    k == z2 && i == x1 + 1 || k == z2 && i == x2 - 1)
+                {
+                    bloqueAdyacenteAEsquina = true;
+                }
                 
-                int numero = CalcularNumero(i, y2, k, ejex, ejey, ejez);
+                int numero = CalcularNumero(i, y2, k, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;
 
             }
         }
         
-
+        //Cara 6
         for (int k = z1+1; k < z2; k++)
         {
             for (int i = x1+1; i < x2; i++)
@@ -579,13 +641,23 @@ public class Renderizado : MonoBehaviour
                 int ejex = 1;
                 int ejey = 0;
                 int ejez = 1;
+                
+                bool bloqueAdyacenteAEsquina = false;
 
                 if (i == x1 || i == x2 || k == z1 || k == z2)
                 {
                     ejey = 1;
                 }
+
+                if (i == x1 && k == z1 + 1 || i == x1 && k == z2 - 1 ||
+                    i == x2 && k == z1 + 1 || i == x2 && k == z2 - 1 ||
+                    k == z1 && i == x1 + 1 || k == z1 && i == x2 - 1 ||
+                    k == z2 && i == x1 + 1 || k == z2 && i == x2 - 1)
+                {
+                    bloqueAdyacenteAEsquina = true;
+                }
                 
-                int numero = CalcularNumero(i, y1, k, ejex, ejey, ejez);
+                int numero = CalcularNumero(i, y1, k, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;;
 
