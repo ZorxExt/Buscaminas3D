@@ -17,7 +17,6 @@ public class Renderizado : MonoBehaviour
 
     //Contadores
     public int totalAmountNoBombs;
-    public int totalAmountBombs;
 
     //Variables
     public int porcentajeBombas = 10;
@@ -32,24 +31,26 @@ public class Renderizado : MonoBehaviour
     }
     
     //Empezar una capa nueva (o la primera)
-    public void CapaNueva(int x1, int x2, int y1, int y2, int z1, int z2)
+    public void CapaNueva()
     {
+        win = false;
         BorrarBlockMap();
-        CreateTable(x1, x2, y1, y2, z1, z2);
+        CreateTable(-5, 4, -5, 4, -5, 4);
     }
 
     public void PrimeraCapa()
     {
         //Reset de variables relevntes cuando empezás un juego
         lost = false;
-        win = false;
+        totalAmountNoBombs = 0;
         
-        CapaNueva(-5, 4, -5, 4, -5, 4);
+        UIManager.uiManager.ResetPuntos();
+        CapaNueva();
     }
 
     
     // Spawn block in "coordenadas"
-    public void SpawnBlock(bool isBomb, Vector3 coordenadas)
+    private void SpawnBlock(bool isBomb, Vector3 coordenadas)
     {
         GameObject newBlock;
         
@@ -72,7 +73,7 @@ public class Renderizado : MonoBehaviour
         blockMap.Add($"{x},{y},{z}", newBlock);
     }
     
-    public void DeleteBlock(Vector3 coordenadas)
+    private void DeleteBlock(Vector3 coordenadas)
     {       
         int x = (int)coordenadas.x;
         int y = (int)coordenadas.y;
@@ -87,7 +88,6 @@ public class Renderizado : MonoBehaviour
         else if (thisBlock.GetComponent<BlockProperties>().isBomb)
         {
             lost = true;
-            UIManager.uiManager.ResetPuntos();
             return;
         }
         
@@ -158,7 +158,7 @@ public class Renderizado : MonoBehaviour
         }
     }
     
-    public void BorrarBlockMap()
+    private void BorrarBlockMap()
     {
         foreach (var item in blockMap.Keys)
         {
@@ -183,8 +183,7 @@ public class Renderizado : MonoBehaviour
     
     // Logica y creacion tablero
     
-    
-    public bool[] PoblarArray(int length, bool valor)
+    private bool[] PoblarArray(int length, bool valor)
     {
         bool[] array = new bool[length];
         
@@ -196,7 +195,7 @@ public class Renderizado : MonoBehaviour
         return array;
     }
 
-    public bool[] MezclarArray(bool[] array)
+    private bool[] MezclarArray(bool[] array)
     {
         for (int i = 0; i < array.Length - 1; i++) 
         {
@@ -209,7 +208,7 @@ public class Renderizado : MonoBehaviour
         return array;
     }
 
-    public bool[,] Make2DArray(bool[] array1D, int width, int height)
+    private bool[,] Make2DArray(bool[] array1D, int width, int height)
     {
         bool[,] array2D = new bool[width, height];
 
@@ -228,12 +227,11 @@ public class Renderizado : MonoBehaviour
     }
     
     
-    public bool[,] GenerarCara(int alto, int ancho)
+    private bool[,] GenerarCara(int alto, int ancho)
     {
 
         int bombAmount = porcentajeBombas * alto * ancho / 100;
-        totalAmountBombs += bombAmount;
-        
+
         int nobombAmount = (alto * ancho) - bombAmount;
         
         bool[] bombArray = PoblarArray(bombAmount, true);
@@ -248,7 +246,7 @@ public class Renderizado : MonoBehaviour
     }
 
 
-    public int CalcularNumero(int i, int j, int k)
+    private int CalcularNumero(int i, int j, int k, int ejex, int ejey, int ejez)
     {
         string thisKey = $"{i},{j},{k}";
         GameObject thisBlock = blockMap[thisKey];
@@ -260,11 +258,11 @@ public class Renderizado : MonoBehaviour
 
         int contador = 0;
 
-        for (int x = -1; x <= 1; x++)
+        for (int x = -1 * ejex; x <= ejex; x++)
         {
-            for (int y = -1; y <= 1; y++)
+            for (int y = -1 * ejey; y <= ejey; y++)
             {
-                for (int z = -1; z <= 1; z++)
+                for (int z = -1 * ejez; z <= ejez; z++)
                 {
 
                     if (Math.Abs(x) + Math.Abs(y) + Math.Abs(z) == 3)
@@ -294,7 +292,7 @@ public class Renderizado : MonoBehaviour
         return contador;
     }
 
-    public void CreateTable(int x1, int x2, int y1, int y2, int z1, int z2)
+    private void CreateTable(int x1, int x2, int y1, int y2, int z1, int z2)
     {
         int width = Math.Abs(x1 - x2) + 1;
         int height = Math.Abs(y1 - y2) + 1;
@@ -305,7 +303,7 @@ public class Renderizado : MonoBehaviour
         //Cara 1
         
         bool[,] cara1 = GenerarCara(width, height);
-        
+
         for (int j = y1; j < (y2 + 1) ; j++)
         {
             for (int i = x1; i < (x2 + 1) ; i++)
@@ -356,7 +354,7 @@ public class Renderizado : MonoBehaviour
         {
             for (int k = z1+1; k < z2; k++)
             {
-                bool isBomb = cara4[j - y1, k - (z1 + 1)];
+                bool isBomb = cara4[k - (z1 + 1), j - y1];
                 
                 SpawnBlock(isBomb, new Vector3(x2,j,k));
             }
@@ -406,8 +404,17 @@ public class Renderizado : MonoBehaviour
                 string llave = $"{i},{j},{z2}";
                 
                 GameObject bloque = blockMap[llave];
+                
+                int ejex = 1;
+                int ejey = 1;
+                int ejez = 0;
 
-                int numero = CalcularNumero(i, j, z2);
+                if (i == x1 || i == x2 || j == y1 || j == y2)
+                {
+                    ejez = 1;
+                }
+
+                int numero = CalcularNumero(i, j, z2, ejex, ejey, ejez);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
@@ -420,8 +427,17 @@ public class Renderizado : MonoBehaviour
             {
                 string llave = $"{i},{j},{z1}";
                 GameObject bloque = blockMap[llave];
+                
+                int ejex = 1;
+                int ejey = 1;
+                int ejez = 0;
 
-                int numero = CalcularNumero(i, j, z1);
+                if (i == x1 || i == x2 || j == y1 || j == y2)
+                {
+                    ejez = 1;
+                }
+
+                int numero = CalcularNumero(i, j, z1, ejex, ejey, ejez);
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
@@ -437,8 +453,17 @@ public class Renderizado : MonoBehaviour
                 string llave = $"{x1},{j},{k}";
                 
                 GameObject bloque = blockMap[llave];
+                
+                int ejex = 0;
+                int ejey = 1;
+                int ejez = 1;
+                
+                if (j == y1 || j == y2 || k == z1 || k == z2)
+                {
+                    ejex = 1;
+                }
 
-                int numero = CalcularNumero(x1, j, k);
+                int numero = CalcularNumero(x1, j, k, ejex, ejey, ejez);
                 bloque.GetComponent<BlockProperties>().number = numero;
 
             }
@@ -454,7 +479,16 @@ public class Renderizado : MonoBehaviour
 
                 GameObject bloque = blockMap[llave];
 
-                int numero = CalcularNumero(x2, j, k);
+                int ejex = 0;
+                int ejey = 1;
+                int ejez = 1;
+
+                if (j == y1 || j == y2 || k == z1 || k == z2)
+                {
+                    ejex = 1;
+                }
+                
+                int numero = CalcularNumero(x2, j, k, ejex, ejey, ejez);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
@@ -471,7 +505,16 @@ public class Renderizado : MonoBehaviour
                 string llave = $"{i},{y2},{k}";
                 GameObject bloque = blockMap[llave];
 
-                int numero = CalcularNumero(i, y2, k);
+                int ejex = 1;
+                int ejey = 0;
+                int ejez = 1;
+
+                if (i == x1 || i == x2 || k == z1 || k == z2)
+                {
+                    ejey = 1;
+                }
+
+                int numero = CalcularNumero(i, y2, k, ejex, ejey, ejez);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;
 
@@ -486,7 +529,16 @@ public class Renderizado : MonoBehaviour
                 string llave = $"{i},{y1},{k}";
                 GameObject bloque = blockMap[llave];
 
-                int numero = CalcularNumero(i, y1, k);
+                int ejex = 1;
+                int ejey = 0;
+                int ejez = 1;
+
+                if (i == x1 || i == x2 || k == z1 || k == z2)
+                {
+                    ejey = 1;
+                }
+
+                int numero = CalcularNumero(i, y1, k, ejex, ejey, ejez);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;;
 

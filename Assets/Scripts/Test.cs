@@ -47,6 +47,7 @@ public class Test : MonoBehaviour
         foreach (var item in blockMap.Keys)
         {
             GameObject thisBlock = blockMap[item];
+            
             bool isFlagged = thisBlock.GetComponent<BlockProperties>().isFlagged;
             bool isBomb = thisBlock.GetComponent<BlockProperties>().isBomb;
             bool lost = Renderizado.renderizado.lost;

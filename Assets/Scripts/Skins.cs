@@ -14,10 +14,11 @@ public class Skins : MonoBehaviour
     {
         AquaInferno,
         BlancoNegro,
+        NaranjaVerde
     }
 
-    public int index = 0;
-    public Skin[] skinsNames = new Skin[Enum.GetValues(typeof(Skin)).Length];
+    private int _index = 0;
+    private readonly Skin[] _skinsNames = new Skin[Enum.GetValues(typeof(Skin)).Length];
 
     public Skin skinActual;
 
@@ -53,7 +54,7 @@ public class Skins : MonoBehaviour
         foreach(Skin item in Enum.GetValues(typeof(Skin)))
         {
             Debug.Log(item);
-            skinsNames[i] = item;
+            _skinsNames[i] = item;
             i++;
         }
     }
@@ -61,31 +62,31 @@ public class Skins : MonoBehaviour
 
     public void NextSkin()
     {
-        index++;
+        _index++;
         try
         {
-            skinActual = skinsNames[index];
+            skinActual = _skinsNames[_index];
         }
         catch
         {
-            skinActual = skinsNames[0];
-            index = 0;
+            skinActual = _skinsNames[0];
+            _index = 0;
         }
 
     }
 
     public void PreviousSkin()
     {
-        index--;
+        _index--;
         try
         {
-            skinActual = skinsNames[index];
+            skinActual = _skinsNames[_index];
         }
         catch
         {
-            int lastIndex = skinsNames.Length - 1;
-            skinActual = skinsNames[lastIndex];
-            index = lastIndex;
+            int lastIndex = _skinsNames.Length - 1;
+            skinActual = _skinsNames[lastIndex];
+            _index = lastIndex;
         }
     }
     
@@ -99,7 +100,7 @@ public class Skins : MonoBehaviour
         switch (Renderizado.renderizado.temaOscuro)
         {
             
-            case true: //ACA ESTAN LOS DARKS
+            case true: //Cubos blancos
                 switch (skin)
                 {
                     case Skin.AquaInferno:
@@ -109,15 +110,21 @@ public class Skins : MonoBehaviour
                         break;
                     
                     case Skin.BlancoNegro:
-                        colorCorazon = new Color (0.0f, 0.0f, 0.0f, 0.1f);
-                        colorLuzAdentro = Color.black;
-                        colorLuzAfuera = Color.white;
+                        colorCorazon = new Color (0.0f, 0.0f, 0.0f, 0.9f);
+                        colorLuzAdentro = new Color(0.1f, 0.1f, 0.1f);
+;                        colorLuzAfuera = Color.gray;
+                        break;
+                    
+                    case Skin.NaranjaVerde:
+                        colorCorazon = new Color(0.0f, 0.0f, 0.0f, 0.7f);
+                        colorLuzAdentro = new Color(1f, 0.3f, 0.1f);
+                        colorLuzAfuera = new Color(0.2f, 0.3f, 0.1f, 0.6f);
                         break;
                 }
                 break;
             
             
-            case false: //ACA ESTAN LOS WHITES
+            case false: //Cubos negros
                 switch (skin)
                 {
                     case Skin.AquaInferno:
@@ -127,38 +134,20 @@ public class Skins : MonoBehaviour
                         break;
                     
                     case Skin.BlancoNegro:
-                        colorCorazon = new Color(0f,0f,0f,0.7f);
-                        colorLuzAdentro = Color.white;
+                        colorCorazon = new Color(0f,0f,0f,0.8f);
+                        colorLuzAdentro = new Color(1.0f, 1.0f, 1.0f, 0.5f);
                         colorLuzAfuera = Color.white;
                         break;
-
-
+                    
+                    case Skin.NaranjaVerde:
+                        colorCorazon = new Color(0.0f, 0.0f, 0.0f, 0.5f);
+                        colorLuzAdentro = new Color(0.6f, 0.9f, 0.0f);
+                        colorLuzAfuera = new Color(1f, 0.3f, 0.1f);
+                        break;
                 }
                 break;
         }
-        
-/*
-        switch (skin)
-        {
-            case Skin.Azul:
-                colorCorazon = new Color(0.1368f,0.4284f,0.7075f,0.6823f);
-                colorLuzAdentro = new Color(0f,0.7176f,0.7176f,1f);
-                colorLuzAfuera = new Color(0.2470f, 0.2039f, 0.7921f);
-                break;
-            
-            case Skin.Rojo:
-                colorCorazon = new Color(0.3962f, 0f, 0f, 0.3764f);
-                colorLuzAdentro = new Color(0.9921f, 0f, 0.1568f);
-                colorLuzAfuera = new Color(0.2470f, 0.2039f, 0.7921f);
-                break;
-            
-            case Skin.Green:
-                colorCorazon = Color.green;
-                colorLuzAdentro = Color.green;
-                colorLuzAfuera = Color.green;
-                break;
-        }
-*/
+
         luzAfuera.GetComponent<Light>().color = colorLuzAfuera;
         luzAdentro.GetComponent<Light>().color = colorLuzAdentro;
         corazon.GetComponent<Renderer>().material.color = colorCorazon;
