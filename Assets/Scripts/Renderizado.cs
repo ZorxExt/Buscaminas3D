@@ -248,7 +248,7 @@ public class Renderizado : MonoBehaviour
     }
 
 
-    public int CalcularNumero(int i, int j, int k, int ejex, int ejey, int ejez, bool bloqueAdyacenteAEsquina)
+    public int CalcularNumero(int i, int j, int k)
     {
         string thisKey = $"{i},{j},{k}";
         GameObject thisBlock = blockMap[thisKey];
@@ -260,14 +260,14 @@ public class Renderizado : MonoBehaviour
 
         int contador = 0;
 
-        for (int x = -1 * ejex; x <= ejex; x++)
+        for (int x = -1; x <= 1; x++)
         {
-            for (int y = -1 * ejey; y <= ejey; y++)
+            for (int y = -1; y <= 1; y++)
             {
-                for (int z = -1 * ejez; z <= ejez; z++)
+                for (int z = -1; z <= 1; z++)
                 {
 
-                    if (bloqueAdyacenteAEsquina && (Math.Abs(x) + Math.Abs(y) + Math.Abs(z)) == 3)
+                    if (Math.Abs(x) + Math.Abs(y) + Math.Abs(z) == 3)
                     {
                         continue;
                     }
@@ -299,58 +299,36 @@ public class Renderizado : MonoBehaviour
         int width = Math.Abs(x1 - x2) + 1;
         int height = Math.Abs(y1 - y2) + 1;
         int depth = Math.Abs(z1 - z2) + 1;
-        
-        int contadorI = 0;
-        int contadorJ = 0;
-        int contadorK = 0;
-        
+
         //PAREDES GRANDES
         
         //Cara 1
         
         bool[,] cara1 = GenerarCara(width, height);
-
-        contadorI = 0;
-        contadorJ = 0;
         
         for (int j = y1; j < (y2 + 1) ; j++)
         {
             for (int i = x1; i < (x2 + 1) ; i++)
             {
 
-                bool isBomb = cara1[contadorI, contadorJ];
+                bool isBomb = cara1[i - x1, j - y1];
                 
                 SpawnBlock(isBomb,new Vector3(i, j, z2));
-
-                contadorI++;
             }
-
-            contadorI = 0;
-            
-            contadorJ++;
         }
         
         //Cara 2
 
         bool[,] cara2 = GenerarCara(width, height);
 
-        contadorI = 0;
-        contadorJ = 0;
-        
         for (int j = y1; j < (y2 + 1) ; j++)
         {
             for (int i = x1; i < (x2 + 1) ; i++)
             {
-                bool isBomb = cara2[contadorI, contadorJ];
+                bool isBomb = cara2[i - x1, j - y1];
                 
                 SpawnBlock(isBomb,new Vector3(i,j, z1));
-                
-                contadorI++;
             }
-
-            contadorI = 0;
-            
-            contadorJ++;
         } 
         
         //PAREDES CHICAS
@@ -359,47 +337,29 @@ public class Renderizado : MonoBehaviour
         
         bool[,] cara3 = GenerarCara(depth, height);
 
-        contadorK = 0;
-        contadorJ = 0;
-        
         for (int j = y1; j < (y2+1); j++)
         {
             
             for (int k = z1+1; k < z2; k++)
             {
-                bool isBomb = cara3[contadorK, contadorJ];
+                bool isBomb = cara3[k - (z1 + 1), j - y1];
                 
                 SpawnBlock(isBomb,new Vector3(x1,j,k));
-                
-                contadorK++;
             }
-
-            contadorK = 0;
-            
-            contadorJ++;
         }
         
         //Cara 4
         
         bool[,] cara4 = GenerarCara(depth, height);
-        
-        contadorK = 0;
-        contadorJ = 0;
-        
+
         for (int j = y1; j < y2+1; j++)
         {
             for (int k = z1+1; k < z2; k++)
             {
-                bool isBomb = cara4[contadorK, contadorJ];
+                bool isBomb = cara4[j - y1, k - (z1 + 1)];
                 
                 SpawnBlock(isBomb, new Vector3(x2,j,k));
-
-                contadorK++;
             }
-
-            contadorK = 0;
-            
-            contadorJ++;
         }
         
         //TAPAS
@@ -407,45 +367,28 @@ public class Renderizado : MonoBehaviour
         //Cara 5
         
         bool[,] cara5 = GenerarCara(width, depth);
-        
-        contadorI = 0;
-        contadorK = 0;
-        
+
         for (int k = z1+1; k < z2; k++)
         {
             for (int i = x1+1; i < x2; i++)
             {
-                bool isBomb = cara5[contadorI, contadorK];
+                bool isBomb = cara5[i - (x1 + 1), k - (z1 + 1)];
                 
                 SpawnBlock(isBomb,new Vector3(i,y2,k));
-                
-                contadorI++;
             }
-
-            contadorI = 0;
-            
-            contadorK++;
         }
         
         //Cara 6
         
         bool[,] cara6 = GenerarCara(width, height);
-        
-        contadorI = 0;
-        contadorK = 0;
-        
+
         for (int k = z1+1; k < z2; k++)
         {
             for (int i = x1+1; i < x2; i++)
             {
-                bool isBomb = cara6[contadorI, contadorK];
+                bool isBomb = cara6[i - (x1 + 1), k - (z1 + 1)];
                 SpawnBlock(isBomb,new Vector3(i,y1,k));
-                contadorI++;
             }
-
-            contadorI = 0;
-            
-            contadorK++;
         }
         
         // Acá recorre todos los bloques y les pone su número
@@ -463,27 +406,8 @@ public class Renderizado : MonoBehaviour
                 string llave = $"{i},{j},{z2}";
                 
                 GameObject bloque = blockMap[llave];
-                
-                int ejex = 1;
-                int ejey = 1;
-                int ejez = 0;
-                
-                bool bloqueAdyacenteAEsquina = false;
 
-                if (i == x1 || i == x2 || j == y1 || j == y2)
-                {
-                    ejez = 1;
-                }
-                
-                if (i == x1 && j == y1 + 1 || i == x1 && j == y2 - 1 ||
-                    i == x2 && j == y1 + 1 || i == x2 && j == y2 - 1 ||
-                    j == y1 && i == x1 + 1 || j == y1 && i == x2 - 1 ||
-                    j == y2 && i == x1 + 1 || j == y2 && i == x2 - 1)
-                {
-                    bloqueAdyacenteAEsquina = true;
-                }
-
-                int numero = CalcularNumero(i, j, z2, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
+                int numero = CalcularNumero(i, j, z2);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
@@ -496,27 +420,8 @@ public class Renderizado : MonoBehaviour
             {
                 string llave = $"{i},{j},{z1}";
                 GameObject bloque = blockMap[llave];
-                
-                int ejex = 1;
-                int ejey = 1;
-                int ejez = 0;
-                
-                bool bloqueAdyacenteAEsquina = false;
-                
-                if (i == x1 || i == x2 || j == y1 || j == y2)
-                {
-                    ejez = 1;
-                }
 
-                if (i == x1 && j == y1 + 1 || i == x1 && j == y2 - 1 ||
-                    i == x2 && j == y1 + 1 || i == x2 && j == y2 - 1 ||
-                    j == y1 && i == x1 + 1 || j == y1 && i == x2 - 1 ||
-                    j == y2 && i == x1 + 1 || j == y2 && i == x2 - 1)
-                {
-                    bloqueAdyacenteAEsquina = true;
-                }
-                
-                int numero = CalcularNumero(i, j, z1, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
+                int numero = CalcularNumero(i, j, z1);
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
         }
@@ -532,27 +437,8 @@ public class Renderizado : MonoBehaviour
                 string llave = $"{x1},{j},{k}";
                 
                 GameObject bloque = blockMap[llave];
-                
-                int ejex = 0;
-                int ejey = 1;
-                int ejez = 1;
-                
-                bool bloqueAdyacenteAEsquina = false;
 
-                if (j == y1 || j == y2 || k == z1 || k == z2)
-                {
-                    ejex = 1;
-                }
-
-                if (k == z1 && j == y1 + 1 || k == z1 && j == y2 - 1 ||
-                    k == z2 && j == y1 + 1 || k == z2 && j == y2 - 1 ||
-                    j == y1 && k == z1 + 1 || j == y1 && k == z2 - 1 ||
-                    j == y2 && k == z1 + 1 || j == y2 && k == z2 - 1)
-                {
-                    bloqueAdyacenteAEsquina = true;
-                }
-                
-                int numero = CalcularNumero(x1, j, k, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
+                int numero = CalcularNumero(x1, j, k);
                 bloque.GetComponent<BlockProperties>().number = numero;
 
             }
@@ -568,26 +454,7 @@ public class Renderizado : MonoBehaviour
 
                 GameObject bloque = blockMap[llave];
 
-                int ejex = 0;
-                int ejey = 1;
-                int ejez = 1;
-                
-                bool bloqueAdyacenteAEsquina = false;
-
-                if (j == y1 || j == y2 || k == z1 || k == z2)
-                {
-                    ejex = 1;
-                }
-
-                if (k == z1 && j == y1 + 1 || k == z1 && j == y2 - 1 ||
-                    k == z2 && j == y1 + 1 || k == z2 && j == y2 - 1 ||
-                    j == y1 && k == z1 + 1 || j == y1 && k == z2 - 1 ||
-                    j == y2 && k == z1 + 1 || j == y2 && k == z2 - 1)
-                {
-                    bloqueAdyacenteAEsquina = true;
-                }
-                
-                int numero = CalcularNumero(x2, j, k, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
+                int numero = CalcularNumero(x2, j, k);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;
             }
@@ -604,26 +471,7 @@ public class Renderizado : MonoBehaviour
                 string llave = $"{i},{y2},{k}";
                 GameObject bloque = blockMap[llave];
 
-                int ejex = 1;
-                int ejey = 0;
-                int ejez = 1;
-                
-                bool bloqueAdyacenteAEsquina = false;
-
-                if (i == x1 || i == x2 || k == z1 || k == z2)
-                {
-                    ejey = 1;
-                }
-
-                if (i == x1 && k == z1 + 1 || i == x1 && k == z2 - 1 ||
-                    i == x2 && k == z1 + 1 || i == x2 && k == z2 - 1 ||
-                    k == z1 && i == x1 + 1 || k == z1 && i == x2 - 1 ||
-                    k == z2 && i == x1 + 1 || k == z2 && i == x2 - 1)
-                {
-                    bloqueAdyacenteAEsquina = true;
-                }
-                
-                int numero = CalcularNumero(i, y2, k, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
+                int numero = CalcularNumero(i, y2, k);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;
 
@@ -638,26 +486,7 @@ public class Renderizado : MonoBehaviour
                 string llave = $"{i},{y1},{k}";
                 GameObject bloque = blockMap[llave];
 
-                int ejex = 1;
-                int ejey = 0;
-                int ejez = 1;
-                
-                bool bloqueAdyacenteAEsquina = false;
-
-                if (i == x1 || i == x2 || k == z1 || k == z2)
-                {
-                    ejey = 1;
-                }
-
-                if (i == x1 && k == z1 + 1 || i == x1 && k == z2 - 1 ||
-                    i == x2 && k == z1 + 1 || i == x2 && k == z2 - 1 ||
-                    k == z1 && i == x1 + 1 || k == z1 && i == x2 - 1 ||
-                    k == z2 && i == x1 + 1 || k == z2 && i == x2 - 1)
-                {
-                    bloqueAdyacenteAEsquina = true;
-                }
-                
-                int numero = CalcularNumero(i, y1, k, ejex, ejey, ejez, bloqueAdyacenteAEsquina);
+                int numero = CalcularNumero(i, y1, k);
                 
                 bloque.GetComponent<BlockProperties>().number = numero;;
 
