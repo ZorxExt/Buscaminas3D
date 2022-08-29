@@ -225,6 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b51df16999064df48b495180db62dff1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  temaAnimator: {fileID: 0}
 --- !u!114 &80754113
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,7 +948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c1ddb128c2d3104b8dc19c14e3c9867, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  temaAnimator: {fileID: 0}
   cameraSpeed: 80
 --- !u!224 &1198007316 stripped
 RectTransform:
@@ -1280,12 +1281,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7183474537524536216, guid: ea097d58e4d526941ab5422d73f8bd7e, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7183474537524536216, guid: ea097d58e4d526941ab5422d73f8bd7e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 80754113}
     - target: {fileID: 7183474537524536216, guid: ea097d58e4d526941ab5422d73f8bd7e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: CambiarEscena
+      value: QuitGame
       objectReference: {fileID: 0}
     - target: {fileID: 7183474537524536216, guid: ea097d58e4d526941ab5422d73f8bd7e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument

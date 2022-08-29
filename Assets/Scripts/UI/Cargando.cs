@@ -13,8 +13,6 @@ public class Cargando : MonoBehaviour
  
         StartCoroutine(CargarEscena(escenaParaCargar));
     }
-
-    
     
     IEnumerator CargarEscena(string escena)
     {

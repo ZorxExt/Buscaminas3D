@@ -7,7 +7,7 @@ public class CenterControl : MonoBehaviour
 {
     private float _verticalInput;
     private float _horizontalInput;
-    public Animator animator;
+    public Animator temaAnimator;
     public float cameraSpeed;
 
     public void Start()
@@ -37,6 +37,7 @@ public class CenterControl : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.T))
         {
+            temaAnimator.SetTrigger("CambiarTema");
             Renderizado.renderizado.temaOscuro = !Renderizado.renderizado.temaOscuro;
         }
     }

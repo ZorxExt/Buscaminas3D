@@ -53,7 +53,6 @@ public class Skins : MonoBehaviour
         
         foreach(Skin item in Enum.GetValues(typeof(Skin)))
         {
-            Debug.Log(item);
             _skinsNames[i] = item;
             i++;
         }

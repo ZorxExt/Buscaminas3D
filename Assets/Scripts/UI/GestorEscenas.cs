@@ -28,5 +28,10 @@ public class GestorEscenas : MonoBehaviour
         SceneManager.LoadScene("PantallaDeCarga");
 
     }
+    
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
 

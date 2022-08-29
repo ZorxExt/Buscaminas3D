@@ -11,7 +11,7 @@ public class Test : MonoBehaviour
     public Material bloqueActualInvertido;
     public Material darkBlockMaterial;
     public Material whiteBlockMaterial;
-    
+
     //Colores
     public Color skyboxColorClaro = new Color (0.9f, 0.9f, 0.9f);
     public Color skyboxColorOscuro = Color.black;
@@ -20,7 +20,7 @@ public class Test : MonoBehaviour
     //Dependencias
 
     public UIManager uiManager;
-    
+
     private void Start()
     {
         Renderizado.renderizado.PrimeraCapa();
@@ -73,18 +73,7 @@ public class Test : MonoBehaviour
 
             }
             
-            /*
-            WIN
-             
-            (igual esto es temporal porque no se gana, sino que hace una capa nueva, pero está bueno
-            tener esto a mano para cuando queramos animar la aparición de la capa nueva)
-            
-            Lo que hace ahora mismo esta parte del script es mostrar todas las bombas una vez no te quedan más,
-            así hace el buscaminas real
-            
-            Nosotros podemos hacer que cuando ganás, en esa capa, muestra todas las bombas, hace una
-            animación godita y luego hace una capa nueva con la función Renderizado.renderizado.CapaNueva
-            */
+            //WIN
             
             if (win)
             {
@@ -99,6 +88,7 @@ public class Test : MonoBehaviour
         {
             bloqueActual = whiteBlockMaterial;
             bloqueActualInvertido = darkBlockMaterial;
+            RenderSettings.skybox.SetColor("_Tint", Color.black);
 
             uiManager.ActivarDarkMode(true);
         }
@@ -106,6 +96,7 @@ public class Test : MonoBehaviour
         {
             bloqueActual = darkBlockMaterial;
             bloqueActualInvertido = whiteBlockMaterial;
+            RenderSettings.skybox.SetColor("_Tint", new Color(0.8f, 0.8f, 0.8f));
 
             uiManager.ActivarDarkMode(false);
         }

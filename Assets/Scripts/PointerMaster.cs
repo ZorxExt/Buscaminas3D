@@ -15,15 +15,22 @@ public class PointerMaster : MonoBehaviour
         GameObject pointed = pointerIt.GetComponent<Pointer>().contact;
 
         Destroy(pointerIt);
-
+        
         pointed.GetComponent<MeshRenderer>().enabled = false;
         pointed.GetComponent<Collider>().enabled = false;
-        
-        if (pointed.GetComponent<BlockProperties>().number == 0)
+
+        try
         {
-            pointed.GetComponentInChildren<TextMeshPro>().text = "";
-            
+            if (pointed.GetComponent<BlockProperties>().number == 0)
+            {
+                pointed.GetComponentInChildren<TextMeshPro>().text = "";
+
+            }
         }
+        catch
+        {
+        }
+        
     }
     public IEnumerator PointerFlag(Vector3 coordenadas)
     {
@@ -35,7 +42,14 @@ public class PointerMaster : MonoBehaviour
         
         Destroy(pointerIt);
 
-        pointed.GetComponent<BlockProperties>().isFlagged = !pointed.GetComponent<BlockProperties>().isFlagged;
+        try
+        {
+            pointed.GetComponent<BlockProperties>().isFlagged = !pointed.GetComponent<BlockProperties>().isFlagged;
+
+        }
+        catch
+        {
+        }
     }
     
     

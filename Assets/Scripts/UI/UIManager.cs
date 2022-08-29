@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public int puntaje;
     public Animator menuAnimator;
+    public GameObject panelControls;
+    public Animator panelAnimator;
 
     public Texture2D darkThemeButton;
     public Texture2D whiteThemeButton;
@@ -34,7 +36,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-
     public void SumarPuntos(int puntos)
     {
         puntaje = puntaje + puntos;
@@ -48,7 +49,6 @@ public class UIManager : MonoBehaviour
 
     public void MostrarUILost(bool switcher)
     {
-        
         lostUI.SetActive(switcher);
     }
     
