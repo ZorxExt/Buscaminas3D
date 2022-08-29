@@ -23,7 +23,7 @@ public class CenterControl : MonoBehaviour
         //Rotacion en X e Y de la camara
         gameObject.transform.Rotate(cameraSpeed * Time.deltaTime * _horizontalInput *Vector3.down);
         gameObject.transform.Rotate(cameraSpeed * Time.deltaTime * _verticalInput * Vector3.right);
-        gameObject.transform.Rotate(cameraSpeed * Time.deltaTime * _profundiadInput * Vector3.back);
+        gameObject.transform.Rotate(cameraSpeed * Time.deltaTime * _profundiadInput * Vector3.forward);
 
         if (Input.GetKeyDown(KeyCode.T))
         {
