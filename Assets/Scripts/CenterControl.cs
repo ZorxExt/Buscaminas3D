@@ -7,6 +7,7 @@ public class CenterControl : MonoBehaviour
 {
     private float _verticalInput;
     private float _horizontalInput;
+    private float _profundiadInput;
     public Animator temaAnimator;
     public float cameraSpeed;
 
@@ -18,22 +19,11 @@ public class CenterControl : MonoBehaviour
     {
         _verticalInput = Input.GetAxis("Vertical");
         _horizontalInput = Input.GetAxis("Horizontal");
-
+        _profundiadInput = Input.GetAxis("Rotate");
         //Rotacion en X e Y de la camara
         gameObject.transform.Rotate(cameraSpeed * Time.deltaTime * _horizontalInput *Vector3.down);
         gameObject.transform.Rotate(cameraSpeed * Time.deltaTime * _verticalInput * Vector3.right);
-        
-        
-        //Rotacion en Z de la camara (Se puede mejorar mediante inputs con flots para mas smooth)
-        if (Input.GetKey(KeyCode.Q))
-        {
-            gameObject.transform.Rotate(Time.deltaTime * cameraSpeed * Vector3.back);
-
-        }
-        if (Input.GetKey(KeyCode.E))
-        {
-            gameObject.transform.Rotate(Time.deltaTime * 50 *Vector3.forward);
-        }
+        gameObject.transform.Rotate(cameraSpeed * Time.deltaTime * _profundiadInput * Vector3.back);
 
         if (Input.GetKeyDown(KeyCode.T))
         {
